@@ -32,4 +32,13 @@
         </menu>
     </item>
 
+    <item android:title="Exit">
+        <menu>
+            <item
+                android:id="@+id/log_out"
+                android:icon="@drawable/logout"
+                android:title="Log Out" />
+        </menu>
+    </item>
+
 </menu>

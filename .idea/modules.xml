@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PCSAnroidAPP.iml" filepath="$PROJECT_DIR$/PCSAnroidAPP.iml" />
-      <module fileurl="file://C:\Users\dev6\AndroidStudioProjects\PCSAnroidAPP\RPOS.iml" filepath="C:\Users\dev6\AndroidStudioProjects\PCSAnroidAPP\RPOS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\dev6\AndroidStudioProjects\PCSAnroidAPP\app\app.iml" filepath="C:\Users\dev6\AndroidStudioProjects\PCSAnroidAPP\app\app.iml" />
     </modules>
   </component>
 </project>
