@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">RPOS</string>
+    <string name="o">o</string>
+    <string name="i">i</string>
+    <string name="n">n</string>
+    <string name="t">t</string>
+    <string name="dot">o</string>
+    <string name="ofSale">of Sale</string>
+    <string name="pcstores">PC STORES ©</string>
+    <string name="rights">© 1998-2018 PC STORES, All rights reserved.</string>
+    <string name="UserName">User Name</string>
+    <string name="Password">Password</string>
+    <string name="KeepMeLoggedIn">Keep me logged in</string>
+    <string name="Login">Login</string>
+    <string name="title_activity_nav_main">NavMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="todo">TODO</string>
+    <string name="POS">PC Stores Point Of Sale</string>
+    <string name="website">pcstores.com.jo</string>
+</resources>

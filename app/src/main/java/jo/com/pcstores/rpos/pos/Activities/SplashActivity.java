@@ -1,0 +1,110 @@
+package jo.com.pcstores.rpos.pos.Activities;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+
+import jo.com.pcstores.rpos.R;
+
+public class SplashActivity extends AppCompatActivity {
+
+    //DECLARE
+    ImageView logo;
+//    TextView O;
+//    TextView I;
+//    TextView N;
+//    TextView T;
+    //TextView dot;
+    //TextView ofSale;
+    ImageView O;
+    ImageView I;
+    ImageView N;
+    ImageView T;
+    ImageView dot;
+    ImageView ofSale;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+
+        //HIDE ACTIONBAR
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        //INITIALIZE
+        logo = findViewById(R.id.imgLogo);
+        O = findViewById(R.id.txtO);
+        I = findViewById(R.id.txtI);
+        N = findViewById(R.id.txtN);
+        T = findViewById(R.id.txtT);
+        dot = findViewById(R.id.txtdot);
+        ofSale = findViewById(R.id.txtOfSale);
+
+        //MAKE TEXT INVISIBLE
+        O.setVisibility(View.INVISIBLE);
+        I.setVisibility(View.INVISIBLE);
+        N.setVisibility(View.INVISIBLE);
+        T.setVisibility(View.INVISIBLE);
+        dot.setVisibility(View.INVISIBLE);
+        ofSale.setVisibility(View.INVISIBLE);
+
+        //SET ANIMATION FOR IMAGE
+        Animation a= AnimationUtils.loadAnimation(SplashActivity.this,R.anim.fadein);
+        logo.startAnimation(a);
+
+        //SHOW TEXT
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                O.setVisibility(View.VISIBLE);
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        I.setVisibility(View.VISIBLE);
+                        new android.os.Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                N.setVisibility(View.VISIBLE);
+                                new android.os.Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        T.setVisibility(View.VISIBLE);
+                                        new android.os.Handler().postDelayed(new Runnable() {
+                                           @Override
+                                            public void run() {
+                                                dot.setVisibility(View.VISIBLE);
+//                                                Animation b= AnimationUtils.loadAnimation(SplashActivity.this,R.anim.translatefadexy);
+//                                                dot.startAnimation(b);
+
+                                                new android.os.Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        ofSale.setVisibility(View.VISIBLE);
+                                                        new android.os.Handler().postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Intent i = new Intent(SplashActivity.this,LoginActivity.class);
+                                                                startActivity(i);
+                                                            }
+                                                        },500);
+                                                    }
+                                                },200);
+                                           }
+                                       },200);
+
+                                    }
+                                },200);
+                            }
+                        },200);
+                    }
+                },200);
+            }
+        },1000);
+    }
+}

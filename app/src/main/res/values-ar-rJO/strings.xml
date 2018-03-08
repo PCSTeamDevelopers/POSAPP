@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RPOS</string>
+    <string name="o">o</string>
+    <string name="i">i</string>
+    <string name="n">n</string>
+    <string name="t">t</string>
+    <string name="dot">o</string>
+    <string name="ofSale">of Sale</string>
+    <string name="pcstores">PC STORES ©</string>
+    <string name="rights">© 1998-2018 PC STORES, All rights reserved.</string>
+    <string name="UserName">اسم المستخدم</string>
+    <string name="Password">كلمة المرور</string>
+    <string name="KeepMeLoggedIn">حفظ تسجيل الدخول</string>
+    <string name="Login">تسجيل الدخول</string>
+    <string name="title_activity_nav_main">NavMainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="todo">TODO</string>
+    <string name="POS">Point Of Sale</string>
+</resources>

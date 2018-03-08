@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/main"
+            android:title="Main" />
+        <item
+            android:id="@+id/nav_receipts"
+            android:icon="@drawable/receipt"
+            android:title="Receipts" />
+        <item
+            android:id="@+id/nav_sales"
+            android:icon="@drawable/sales"
+            android:title="Sales" />
+
+    </group>
+
+    <item android:title="Close Cash">
+        <menu>
+            <item
+                android:id="@+id/nav_shift"
+                android:icon="@drawable/endshift"
+                android:title="End Shift" />
+            <item
+                android:id="@+id/nav_day"
+                android:icon="@drawable/endday"
+                android:title="End Day" />
+        </menu>
+    </item>
+
+</menu>
