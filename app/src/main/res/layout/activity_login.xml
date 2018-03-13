@@ -143,9 +143,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="432dp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/tvPw"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:srcCompat="@drawable/user" android:contentDescription="@string/todo" />
+        app:srcCompat="@drawable/user" />
 
     <ImageView
         android:id="@+id/imgPw"

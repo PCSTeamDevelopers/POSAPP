@@ -14,11 +14,8 @@ import jo.com.pcstores.rpos.R;
 
 public class Splash2Activity extends AppCompatActivity {
     ImageView logo;
-    TextView O;
-    TextView I;
-    TextView N;
-    TextView T;
-    TextView ofSale;
+    ImageView pos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,64 +27,38 @@ public class Splash2Activity extends AppCompatActivity {
 
     //INITIALIZE
     logo = findViewById(R.id.imgLogo);
-    O = findViewById(R.id.txtO);
-    I = findViewById(R.id.txtI);
-    N = findViewById(R.id.txtN);
-    T = findViewById(R.id.txtT);
-    ofSale = findViewById(R.id.txtOfSale);
+    pos = findViewById(R.id.imgpos);
 
     //MAKE TEXT INVISIBLE
-        O.setVisibility(View.INVISIBLE);
-        I.setVisibility(View.INVISIBLE);
-        N.setVisibility(View.INVISIBLE);
-        T.setVisibility(View.INVISIBLE);
-        ofSale.setVisibility(View.INVISIBLE);
+        pos.setVisibility(View.INVISIBLE);
 
     //SET ANIMATION FOR IMAGE
-    Animation a= AnimationUtils.loadAnimation(Splash2Activity.this,R.anim.fadein);
-        logo.startAnimation(a);
+//    Animation a= AnimationUtils.loadAnimation(Splash2Activity.this,R.anim.fadein);
+//        logo.startAnimation(a);
 
     //SHOW TEXT
-        new android.os.Handler().postDelayed(new Runnable() {
-        @Override
-        public void run() {
-
-            O.setVisibility(View.VISIBLE);
+            Animation a= AnimationUtils.loadAnimation(Splash2Activity.this,R.anim.fadein);
+            pos.startAnimation(a);
             new android.os.Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    I.setVisibility(View.VISIBLE);
+                    Animation a= AnimationUtils.loadAnimation(Splash2Activity.this,R.anim.blink);
+                    logo.startAnimation(a);
                     new android.os.Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            N.setVisibility(View.VISIBLE);
-                            new android.os.Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    T.setVisibility(View.VISIBLE);
-
-                                            new android.os.Handler().postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    ofSale.setVisibility(View.VISIBLE);
-                                                    new android.os.Handler().postDelayed(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            Intent i = new Intent(Splash2Activity.this,LoginActivity.class);
-                                                            startActivity(i);
-                                                        }
-                                                    },500);
-                                                }
-                                            },200);
-                                        }
-                                    },200);
+                          Intent i = new Intent(Splash2Activity.this,LoginActivity.class);
+                          startActivity(i);
+                          finish();
                         }
-                    },200);
+                    },2000);
                 }
-            },200);
+            },1000);
+
+
         }
-    },1000);
+
 }
-}
+
 
 

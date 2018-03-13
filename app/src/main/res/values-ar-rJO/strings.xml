@@ -19,4 +19,18 @@
     <string name="action_settings">الإعدادات</string>
     <string name="todo">TODO</string>
     <string name="POS">Point Of Sale</string>
+    <string name="website">www.pcstores.com.jo</string>
+    <string name="TakeAway">سفري</string>
+    <string name="Tables">طاولات</string>
+    <string name="Delivery">توصيل</string>
+    <string name="ScheduledOrders">طلبيات</string>
+    <string name="DriveThru">طلبات السيارة</string>
+    <string name="DirectedMeals">اخراج الوجبات</string>
+    <string name="Reservations">الحجوزات</string>
+    <string name="Clear">Clear</string>
+    <string name="Pay">Pay</string>
+    <string name="Prepare">Prepare</string>
+    <string name="Flavors">Flavors</string>
+    <string name="TextView">TextView</string>
+    <string name="Total">Total</string>
 </resources>

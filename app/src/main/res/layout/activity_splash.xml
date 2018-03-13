@@ -60,7 +60,7 @@
         app:layout_constraintStart_toEndOf="@+id/imgLogo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.298"
-        app:srcCompat="@drawable/o" />
+        app:srcCompat="@mipmap/o" />
 
     <ImageView
         android:id="@+id/txtI"
@@ -75,7 +75,7 @@
         app:layout_constraintStart_toEndOf="@+id/txtO"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.296"
-        app:srcCompat="@drawable/i" />
+        app:srcCompat="@mipmap/i" />
 
     <ImageView
         android:id="@+id/txtdot"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.939"
-        app:srcCompat="@drawable/dot" />
+        app:srcCompat="@mipmap/dot" />
 
     <ImageView
         android:id="@+id/txtN"
@@ -106,7 +106,7 @@
         app:layout_constraintStart_toEndOf="@+id/txtI"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/n" />
+        app:srcCompat="@mipmap/n" />
 
     <ImageView
         android:id="@+id/txtT"
@@ -121,7 +121,7 @@
         app:layout_constraintStart_toEndOf="@+id/txtN"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.296"
-        app:srcCompat="@drawable/t" />
+        app:srcCompat="@mipmap/t" />
 
     <ImageView
         android:id="@+id/txtOfSale"
@@ -137,5 +137,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtT"
         app:layout_constraintVertical_bias="0.138"
-        app:srcCompat="@drawable/ofsale" />
+        app:srcCompat="@mipmap/ofsale" />
 </android.support.constraint.ConstraintLayout>

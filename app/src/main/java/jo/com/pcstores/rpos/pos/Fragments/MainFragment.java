@@ -1,13 +1,14 @@
 package jo.com.pcstores.rpos.pos.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import jo.com.pcstores.rpos.R;
 
@@ -16,7 +17,6 @@ import jo.com.pcstores.rpos.R;
  */
 public class MainFragment extends Fragment {
 
-    RecyclerView recSalesTypes;
 
     public MainFragment() {
         // Required empty public constructor
@@ -31,11 +31,7 @@ public class MainFragment extends Fragment {
 
         getActivity().setTitle("Main");
 
-        //INITIALIZE
-        recSalesTypes = x.findViewById(R.id.recSalesType);
 
-        //SET RECYCLER VIEW TYPE
-        recSalesTypes.setLayoutManager(new GridLayoutManager(getActivity(), 3));
 
         return x;
     }

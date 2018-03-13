@@ -18,5 +18,21 @@
     <string name="action_settings">Settings</string>
     <string name="todo">TODO</string>
     <string name="POS">PC Stores Point Of Sale</string>
-    <string name="website">pcstores.com.jo</string>
+    <string name="website">www.pcstores.com.jo</string>
+    <string name="TakeAway">TakeAway</string>
+    <string name="Tables">Tables</string>
+    <string name="Delivery">Delivery</string>
+    <string name="ScheduledOrders">Scheduled Orders</string>
+    <string name="DriveThru">Drive Thru</string>
+    <string name="DirectedMeals">Output Meals</string>
+    <string name="Reservations">Reservations</string>
+    <string name="Clear">Clear</string>
+    <string name="Pay">Pay</string>
+    <string name="Prepare">Prepare</string>
+    <string name="Flavors">Flavors</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="TextView">TextView</string>
+    <string name="Total">Total</string>
 </resources>
