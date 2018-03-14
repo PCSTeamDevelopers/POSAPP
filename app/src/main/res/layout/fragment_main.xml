@@ -114,37 +114,19 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/LL"
-        android:layout_width="464dp"
-        android:layout_height="47dp"
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/txtTotal"
-            android:layout_width="220dp"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:text="@string/Total"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtTotalValue"
-            android:layout_width="220dp"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            android:text="0.00 JD"
-            android:textAlignment="viewEnd"
-            android:textColor="@android:color/background_light"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+/>
 
 </android.support.constraint.ConstraintLayout>

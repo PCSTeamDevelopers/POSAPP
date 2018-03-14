@@ -25,18 +25,18 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".pos.Activities.Splash2Activity" android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
            </activity>
         <activity android:name=".pos.Activities.Splash3Activity"></activity>
         <activity
             android:name=".pos.Activities.NavMainActivity"
             android:label="@string/title_activity_nav_main"
             android:theme="@style/custom.NoActionBar" android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
