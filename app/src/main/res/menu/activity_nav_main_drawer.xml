@@ -9,6 +9,10 @@
             android:icon="@drawable/main"
             android:title="Main" />
         <item
+            android:id="@+id/nav_items"
+            android:icon="@drawable/items"
+            android:title="Items" />
+        <item
             android:id="@+id/nav_receipts"
             android:icon="@drawable/receipt"
             android:title="Receipts" />
@@ -19,16 +23,12 @@
 
     </group>
 
-    <item android:title="Close Cash">
+    <item android:title="Cash">
         <menu>
             <item
                 android:id="@+id/nav_shift"
                 android:icon="@drawable/endshift"
-                android:title="End Shift" />
-            <item
-                android:id="@+id/nav_day"
-                android:icon="@drawable/endday"
-                android:title="End Day" />
+                android:title="Close Cash" />
         </menu>
     </item>
 

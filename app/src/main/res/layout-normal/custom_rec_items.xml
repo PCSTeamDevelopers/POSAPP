@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RL"
+    android:layout_width="100dp"
+    android:layout_height="55dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/border2"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgItem"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:contentDescription="@string/todo"
+        android:paddingLeft="4dp"
+        android:paddingRight="2dp"
+        android:src="@mipmap/burger" />
+
+    <TextView
+        android:id="@+id/txtItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtItemPrice"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="6dp"
+        android:layout_toEndOf="@+id/imgItem"
+        android:paddingLeft="2dp"
+        android:text="@string/TextView"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imgOptions"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="4dp"
+        android:contentDescription="@string/todo"
+        android:paddingBottom="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="4dp"
+        android:paddingTop="2dp"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <TextView
+        android:id="@+id/txtItemPrice"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="6dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="2dp"
+        android:paddingTop="2dp"
+        android:text="@string/TextView"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>
+

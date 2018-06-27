@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pos.Fragments.ItemFragment">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="591dp" />
+
+    <ExpandableListView
+        android:id="@+id/expList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/layoutbts"
+        android:layout_width="wrap_content"
+        android:layout_height="213dp"
+        android:layout_margin="50dp"
+        android:layout_marginBottom="283dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        app:columnCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline15"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.435"
+        app:rowCount="3">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnCategory"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="normal"
+            app:layout_column="0"
+            app:layout_row="0"
+            app:rippleColor="@color/cardview_light_background"
+            app:srcCompat="@drawable/pluswhite" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnItem"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:backgroundTint="@color/cardview_light_background"
+            app:fabSize="normal"
+            app:layout_column="0"
+            app:layout_row="1"
+            app:rippleColor="@color/colorPrimary"
+            app:srcCompat="@drawable/plus" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="@string/AddCategory"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_column="1"
+            app:layout_row="0" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="@string/AddItem"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_column="1"
+            app:layout_row="1" />
+    </android.support.v7.widget.GridLayout>
+</android.support.constraint.ConstraintLayout>

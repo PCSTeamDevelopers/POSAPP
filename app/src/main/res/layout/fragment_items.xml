@@ -1,17 +1,20 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutItems"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="jo.com.pcstores.rpos.pos.Fragments.ItemsFragment">
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recItems"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"></android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

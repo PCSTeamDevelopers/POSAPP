@@ -1,0 +1,418 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical"
+    tools:context="jo.com.pcstores.rpos.pos.Fragments.MainFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="480dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="96dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border3"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/hdritem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/Item"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hdrqty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="25dp"
+            android:text="@string/Qty"
+
+            android:textAlignment="textStart"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hdrprice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:text="@string/Price"
+
+            android:textAlignment="textStart"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="0dp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recItems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border2"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recCategories"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recCategories"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recItems"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <!--<TableLayout-->
+    <!--android:id="@+id/tableLayout2"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/tableLayout"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/guideline3">-->
+
+    <!--<TableRow-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="4"-->
+    <!--android:orientation="vertical">>-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/btnPay"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:clickable="true"-->
+    <!--android:src="@drawable/pay"-->
+    <!--app:backgroundTint="@color/cardview_light_background"-->
+    <!--app:fabSize="normal"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linearLayout10"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/btnFlavors"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/guideline3" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/btnFlavors"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:clickable="true"-->
+    <!--android:src="@drawable/plus"-->
+    <!--app:backgroundTint="@color/cardview_light_background"-->
+    <!--app:fabSize="normal"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linearLayout10"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/btnPrepare"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/guideline3" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/btnPrepare"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:clickable="true"-->
+    <!--android:src="@drawable/check"-->
+    <!--app:backgroundTint="@color/cardview_light_background"-->
+    <!--app:fabSize="normal"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linearLayout10"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/guideline3" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/btnCancel"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:clickable="true"-->
+    <!--android:src="@drawable/cancel"-->
+    <!--app:backgroundTint="@color/cardview_light_background"-->
+    <!--app:fabSize="normal"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linearLayout10"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/btnPay"-->
+    <!--app:layout_constraintHorizontal_bias="0.352"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/guideline3"-->
+    <!--app:layout_constraintVertical_bias="0.0" />-->
+    <!--</TableRow>-->
+
+    <!--</TableLayout>-->
+
+    <!--<TableLayout-->
+    <!--android:id="@+id/tableLayout"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="11dp"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/linearLayout10"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/tableLayout2">-->
+
+    <!--<TableRow-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="4"-->
+    <!--android:gravity="top"-->
+    <!--android:orientation="vertical">>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/Pay"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_column="4"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:layout_marginLeft="30dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_row="0"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="top|center"-->
+    <!--android:text="@string/Pay" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/Flavors"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="top|center"-->
+    <!--android:text="@string/Flavors" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/Prepare"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="top|center"-->
+    <!--android:text="@string/Prepare" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/Cancel"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="top|center"-->
+    <!--android:text="@string/cancel" />-->
+    <!--</TableRow>-->
+
+    <!--</TableLayout>-->
+
+    <android.support.v7.widget.GridLayout
+
+        android:id="@+id/grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="top"
+        app:columnCount="4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.333"
+        app:rowCount="2">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:clickable="true"
+            android:src="@drawable/dollar"
+            app:backgroundTint="@color/cardview_light_background"
+            app:fabSize="normal"
+            app:layout_column="0"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+            app:layout_constraintEnd_toStartOf="@+id/floatingActionButton6"
+            app:layout_constraintHorizontal_bias="0.352"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_row="0" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnPrepare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:clickable="true"
+            android:src="@drawable/check"
+            app:backgroundTint="@color/cardview_light_background"
+            app:fabSize="normal"
+            app:layout_column="2"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+            app:layout_constraintEnd_toStartOf="@+id/floatingActionButton8"
+            app:layout_constraintTop_toBottomOf="@+id/guideline3"
+            app:layout_row="0" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:clickable="true"
+            android:src="@drawable/cancel"
+            app:backgroundTint="@color/cardview_light_background"
+            app:fabSize="normal"
+            app:layout_column="3"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/guideline3"
+            app:layout_row="0" />
+
+        <TextView
+            android:id="@+id/Pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+
+            android:layout_weight="1"
+            android:text="@string/Pay"
+            android:textSize="18sp"
+            app:layout_column="0"
+            app:layout_gravity="center"
+            app:layout_row="1" />
+
+        <TextView
+            android:id="@+id/Prepare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:text="@string/Prepare"
+            android:textSize="18sp"
+            app:layout_column="2"
+            app:layout_gravity="center"
+            app:layout_row="1" />
+
+        <TextView
+            android:id="@+id/Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textSize="18sp"
+            app:layout_column="3"
+            app:layout_gravity="center"
+            app:layout_row="1" />
+
+    </android.support.v7.widget.GridLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="111dp" />
+
+    <ExpandableListView
+        android:id="@+id/expList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/border2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recOrderList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border2"
+        android:foregroundGravity="left"
+        app:layout_constraintBottom_toTopOf="@+id/expList"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+</android.support.constraint.ConstraintLayout>

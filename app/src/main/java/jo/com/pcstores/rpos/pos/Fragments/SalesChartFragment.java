@@ -3,6 +3,8 @@ package jo.com.pcstores.rpos.pos.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,10 @@ public class SalesChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View x =  inflater.inflate(R.layout.fragment_sales_chart, container, false);
-        getActivity().setTitle("My Sales");
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setTitle("My Sales");
+        actionBar.setSubtitle("");
+
         return x;
     }
 

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TODO: Update blank fragment layout -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+
+    <TextView
+        android:id="@+id/txtcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ItemCode"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etItemID"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/txtcode"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="95dp"
+        android:layout_toEndOf="@+id/txtcode"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtcode"
+        android:layout_marginTop="49dp"
+        android:text="@string/ItemName"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etItemName"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/txtName"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="95dp"
+        android:layout_toEndOf="@+id/txtName"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtcode"
+        android:layout_marginTop="86dp"
+        android:text="@string/Category"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="82dp"
+        android:layout_toEndOf="@+id/txtCategory"
+        android:background="@drawable/border">
+
+        <Spinner
+            android:id="@+id/spCategory"
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtcode"
+        android:layout_marginTop="118dp"
+        android:text="@string/UnitPrice"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etPrice"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/txtPrice"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="95dp"
+        android:layout_toEndOf="@+id/txtPrice"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/txtTax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/txtPrice"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/Tax"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etCategoryID"
+        android:layout_alignTop="@+id/txtTax"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_toEndOf="@+id/txtTax"
+        android:background="@drawable/border">
+
+        <Spinner
+            android:id="@+id/spTax"
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
+
