@@ -158,16 +158,6 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                         obj.setGrandtotal(grandtotal);
                         orderObj.add(obj);
                         inter.orderInterface(orderObj, c);
-
-//                    ArrayList<Items> m=new ArrayList<>();
-//                    Items i = new Items();
-//                    i.setItemPrice(itemPrice);
-//                    i.setItemName(itemName);
-//                    i.setItemQty(qty);
-//                    i.setFlavors("");
-//                    m.add(i);
-//                    inter.itemInterface(m,c);
-//
                         counter.put(itemName, qty);
 
                     } catch (Exception ex) {
