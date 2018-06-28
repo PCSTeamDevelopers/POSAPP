@@ -3,6 +3,8 @@ package jo.com.pcstores.rpos.pos.Classes;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -11,15 +13,30 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import jo.com.pcstores.rpos.R;
 
 public class ItemsClass {
     Realm realm;
     Context c;
+    byte[] bitmapdata = new byte[0];
     public ItemsClass(Context c){
         this.c = c;
         realm = Realm.getDefaultInstance();
     }
 
+    public byte[] emptyArray() {
+        try {
+            Drawable primary = c.getResources().getDrawable(R.drawable.itemborder);
+            Bitmap bitmap = ((BitmapDrawable) primary).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            bitmapdata = stream.toByteArray();
+            return bitmapdata;
+        } catch (Exception ex) {
+            Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return bitmapdata;
+    }
     public List<String> getMainCategories(){
         final List<String> categories = new ArrayList<String>();
         String item ;
@@ -76,7 +93,7 @@ public class ItemsClass {
             item.setItemType(1);
             item.setTax(tax);
             item.setItemPrice(price);
-
+            item.setItemImage(emptyArray());
             String itemfather = getItemId(father);
             item.setFather(itemfather);
 
@@ -84,6 +101,7 @@ public class ItemsClass {
             realm.commitTransaction();
         }catch (Exception ex){
             realm.commitTransaction();
+            Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -107,10 +125,10 @@ public class ItemsClass {
         }
     }
 
-    public void saveImage(Bitmap image) {
+    public void saveImage(String itemID, Bitmap image) {
         try{
         realm.beginTransaction();  //open the database
-        Items items = new Items();
+        Items items = realm.where(Items.class).equalTo("itemId",itemID).findFirst();
         items.setItemImage(getImageByte(image));
         realm.copyToRealmOrUpdate(items);
         realm.commitTransaction();
@@ -129,25 +147,25 @@ public class ItemsClass {
                 byte[] byteArray = stream.toByteArray();
                 return byteArray;
             }else{
-                byte[] emptyArray = new byte[0];
-                return emptyArray;
+                return emptyArray();
             }
         } catch (Exception ex) {
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        byte[] emptyArray = new byte[0];
-        return emptyArray;
+        return emptyArray();
     }
 
-    public Bitmap getImage(byte[] image) {
+    public Bitmap getImage(byte[] image, Context context) {
         try {
-            if(image.length>0) {
-                int width = c.getResources().getDisplayMetrics().widthPixels;
-                int height = c.getResources().getDisplayMetrics().heightPixels;
+            if(!(image.equals(null))) {
+                if (image.length > 0) {
+                    int width = context.getResources().getDisplayMetrics().widthPixels;
+                    int height = context.getResources().getDisplayMetrics().heightPixels;
 
-                Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-                Bitmap.createScaledBitmap(bitmap, width, height, false);
-                return bitmap;
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                    Bitmap.createScaledBitmap(bitmap, width, height, false);
+                    return bitmap;
+                }
             }
         } catch (Exception ex) {
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();

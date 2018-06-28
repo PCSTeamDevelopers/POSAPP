@@ -40,7 +40,7 @@ public class ExpandableListAdapter  extends BaseExpandableListAdapter {
     private HashMap<String, List<String>> _listDataChild;
      String flag;
      Realm realm;
-     ItemsClass itemObj = new ItemsClass(_context);
+     ItemsClass itemObj ;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
@@ -49,6 +49,7 @@ public class ExpandableListAdapter  extends BaseExpandableListAdapter {
         this._listDataChild = listChildData;
         this.flag = flag;
         realm = Realm.getDefaultInstance();
+        itemObj = new ItemsClass(_context);
     }
 
     @Override

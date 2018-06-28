@@ -63,6 +63,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
         private static final int CAMERA_REQUEST = 1888;
         private static final int SELECT_PICTURE = 1;
         ItemsClass itemObj = new ItemsClass(c);
+        String itemName;
 
         public RecItemAdapter(Context c, ArrayList<Items> item,Fragment frag) {
             this.frag = frag;
@@ -76,7 +77,8 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
         {
             //Declare
             TextView txtItemName,txtItemPrice;
-            ImageView imgOptions,imgItem;
+            ImageView imgOptions;
+            public ImageView img;
 
             //initialize
             public viewitem(View itemView) {
@@ -84,6 +86,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                 txtItemName= itemView.findViewById(R.id.txtItemName);
                 txtItemPrice= itemView.findViewById(R.id.txtItemPrice);
                 imgItem= itemView.findViewById(R.id.imgItem);
+                img= itemView.findViewById(R.id.imgItem);
                 imgOptions= itemView.findViewById(R.id.imgOptions);
             }
 
@@ -128,9 +131,14 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
 
         @Override
         public void onBindViewHolder(final viewitem holder, final int position) {
+            try{
             holder.txtItemName.setText(items.get(position).getItemName());
+            itemName = holder.txtItemName.getText().toString();
             holder.txtItemPrice.setText(items.get(position).getItemPrice());
-            //holder.imgItem.setImageBitmap(itemObj.getImage(items.get(position).getItemImage()));
+            Bitmap bitmap = itemObj.getImage(items.get(position).getItemImage(),c);
+            if (!(bitmap.equals(null))) {
+                holder.img.setImageBitmap(bitmap);
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -165,6 +173,9 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                     }
                 }
             });
+            } catch (Exception ex) {
+                Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -182,13 +193,13 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                         imgItem.setImageURI(selectedImageUri);
 
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), selectedImageUri);
-                        itemObj.saveImage(bitmap);
+                        itemObj.saveImage(itemObj.getItemId(itemName),bitmap);
                     }
                 }
             }else if (requestCode == CAMERA_REQUEST) {
                 photo = (Bitmap) data.getExtras().get("data");
                 imgItem.setImageBitmap(photo);
-                itemObj.saveImage(photo);
+                itemObj.saveImage(itemObj.getItemId(itemName),photo);
             }
         }catch (Exception e){
             e.printStackTrace();

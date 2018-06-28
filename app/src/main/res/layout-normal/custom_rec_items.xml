@@ -27,7 +27,7 @@
         android:contentDescription="@string/todo"
         android:paddingLeft="4dp"
         android:paddingRight="2dp"
-        android:src="@mipmap/burger" />
+        android:src="@drawable/itemborder" />
 
     <TextView
         android:id="@+id/txtItemName"

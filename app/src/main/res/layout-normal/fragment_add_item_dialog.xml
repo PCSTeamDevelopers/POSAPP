@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TODO: Update blank fragment layout -->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:scrollbars="vertical">
 
 
     <TextView
@@ -120,7 +128,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/txtPrice"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/Tax"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp" />
@@ -131,7 +139,7 @@
         android:layout_alignStart="@+id/etCategoryID"
         android:layout_alignTop="@+id/txtTax"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="52dp"
         android:layout_toEndOf="@+id/txtTax"
         android:background="@drawable/border">
 
@@ -142,4 +150,5 @@
     </RelativeLayout>
 
 </RelativeLayout>
-
+    </LinearLayout>
+</ScrollView>
