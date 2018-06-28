@@ -250,6 +250,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     }
 
     public String getSubTotal(){
+        subtotal = 0.0f;
         for (int i =0; i < items.size();i++){
             subtotal = subtotal + (Float.valueOf(items.get(i).getSubtotal().toString()));
         }
@@ -257,6 +258,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     }
 
     public String getTaxTotal(){
+        taxtotal = 0.0f;
         for (int i =0; i < items.size();i++){
             taxtotal = taxtotal + (Float.valueOf(items.get(i).getTax().toString()));
         }
@@ -264,6 +266,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     }
 
     public String getDiscountTotal(){
+        discounttotal = 0.0f;
         for (int i =0; i < items.size();i++){
             discounttotal = discounttotal + (Float.valueOf(items.get(i).getDiscount().toString()));
         }
@@ -271,6 +274,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     }
 
     public String getGrandTotal(){
+        grandtotal = 0.0f;
         for (int i =0; i < items.size();i++){
             grandtotal = grandtotal + (Float.valueOf(items.get(i).getGrandtotal().toString()));
         }
