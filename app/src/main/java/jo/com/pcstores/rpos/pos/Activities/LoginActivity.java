@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-
+//Randa
         //HIDE ACTIONBAR
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
