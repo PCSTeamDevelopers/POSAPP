@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\dev1\AndroidStudioProjects\PCS_POS\POSAPP\PCSAnroidAPP.iml" filepath="C:\Users\dev1\AndroidStudioProjects\PCS_POS\POSAPP\PCSAnroidAPP.iml" />
+      <module fileurl="file://C:/Users/dev1/AndroidStudioProjects/PCS_POS/POSAPP/PCSAnroidAPP.iml" filepath="C:/Users/dev1/AndroidStudioProjects/PCS_POS/POSAPP/PCSAnroidAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/POSAPP.iml" filepath="$PROJECT_DIR$/POSAPP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\dev1\AndroidStudioProjects\PCS_POS\POSAPP\app\app.iml" filepath="C:\Users\dev1\AndroidStudioProjects\PCS_POS\POSAPP\app\app.iml" />
+      <module fileurl="file://C:/Users/dev1/AndroidStudioProjects/PCS_POS/POSAPP/app/app.iml" filepath="C:/Users/dev1/AndroidStudioProjects/PCS_POS/POSAPP/app/app.iml" />
     </modules>
   </component>
 </project>

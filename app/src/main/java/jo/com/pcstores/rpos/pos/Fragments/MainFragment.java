@@ -111,8 +111,8 @@ public class MainFragment extends Fragment implements ItemsInterface {
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
         expList.setAdapter(listAdapter);
         expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
-        expList.expandGroup(0);
-        //expList.collapseGroup(0);
+        //expList.expandGroup(0);
+        expList.collapseGroup(0);
 
         //Recycler CATEGORIES
         recCategories.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
@@ -222,8 +222,8 @@ public class MainFragment extends Fragment implements ItemsInterface {
             listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
             expList.setAdapter(listAdapter);
             expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
-            expList.expandGroup(0);
-            // expList.collapseGroup(0);
+            //expList.expandGroup(0);
+            expList.collapseGroup(0);
             } catch (Exception ex) {
                 Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -272,4 +272,5 @@ public class MainFragment extends Fragment implements ItemsInterface {
         super.onActivityResult(requestCode, resultCode, data);
             recAdapter.onActivityResult(requestCode, resultCode, data);
     }
+
 }

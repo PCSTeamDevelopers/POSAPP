@@ -44,6 +44,7 @@ public class ItemFragment extends Fragment {
 
     FloatingActionButton btnCategory;
     FloatingActionButton btnItem;
+    FloatingActionButton btnFlavor;
     Realm realm;
     ItemsClass itemObj = new ItemsClass(getContext());
     public ItemFragment() {
@@ -64,6 +65,7 @@ public class ItemFragment extends Fragment {
 
         btnCategory = x.findViewById(R.id.btnCategory);
         btnItem = x.findViewById(R.id.btnItem);
+        btnFlavor = x.findViewById(R.id.btnFlavor);
         expList = x.findViewById(R.id.expList);
 
         //Expandable list
@@ -157,6 +159,13 @@ public class ItemFragment extends Fragment {
                 }catch (Exception ex){
                     Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnFlavor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
         return x;

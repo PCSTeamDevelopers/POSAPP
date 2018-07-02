@@ -409,6 +409,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/border2"
         android:foregroundGravity="left"
+        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/expList"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"

@@ -16,9 +16,11 @@ import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 
 public class ItemsClass {
+
     Realm realm;
     Context c;
     byte[] bitmapdata = new byte[0];
+
     public ItemsClass(Context c){
         this.c = c;
         realm = Realm.getDefaultInstance();
@@ -37,6 +39,7 @@ public class ItemsClass {
         }
         return bitmapdata;
     }
+
     public List<String> getMainCategories(){
         final List<String> categories = new ArrayList<String>();
         String item ;
@@ -174,4 +177,5 @@ public class ItemsClass {
         Bitmap emptybitmap = Bitmap.createBitmap(10, 10, conf);
         return emptybitmap;
     }
+
 }

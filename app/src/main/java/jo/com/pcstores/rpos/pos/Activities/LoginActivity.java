@@ -110,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
         btnRegistration = findViewById(R.id.btnRegistration);
         swKeepLogged = findViewById(R.id.swKeepLogged);
 
-        container.clearFocus();
-        etPw.clearFocus();
+//        container.clearFocus();
+//        etPw.clearFocus();
 
         //SET ANIMATION FOR IMAGES
 
