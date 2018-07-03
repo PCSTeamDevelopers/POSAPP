@@ -1,12 +1,20 @@
 package jo.com.pcstores.rpos.pos.Classes;
 
-public class Invoices {
+import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
+public class Invoices extends RealmObject {
+
+    @PrimaryKey
+    @Required
     private String invoiceno;
     private String actualtime;
     private String employee;
     private String total;
     private String nettotal;
+    private String status;
 
     public String getInvoiceno() {
         return invoiceno;
@@ -46,5 +54,13 @@ public class Invoices {
 
     public void setNettotal(String nettotal) {
         this.nettotal = nettotal;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

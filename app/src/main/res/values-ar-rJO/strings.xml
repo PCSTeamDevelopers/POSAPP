@@ -91,4 +91,5 @@
     <string name="Save">حفظ</string>
     <string name="UnderCategory">تحت مجموعة</string>
     <string name="CategoryCode">رمز المجموعة</string>
+    <string name="FlavorName">Flavor Name</string>
 </resources>

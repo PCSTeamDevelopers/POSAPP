@@ -1,14 +1,10 @@
 package jo.com.pcstores.rpos.pos.Fragments;
 
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +25,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Adapters.ExpandableListAdapter;
+import jo.com.pcstores.rpos.pos.Classes.Flavors;
 import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
 
@@ -47,6 +44,7 @@ public class ItemFragment extends Fragment {
     FloatingActionButton btnFlavor;
     Realm realm;
     ItemsClass itemObj = new ItemsClass(getContext());
+
     public ItemFragment() {
         // Required empty public constructor
     }
@@ -123,7 +121,7 @@ public class ItemFragment extends Fragment {
             public void onClick(View view) {
                 try{
                     LayoutInflater li = LayoutInflater.from(getActivity());
-                    View myView = li.inflate(R.layout.fragment_add_item_dialog, null);
+                    View myView = li.inflate(R.layout.add_item_dialog, null);
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                     alertDialogBuilder.setView(myView);
 
@@ -166,6 +164,67 @@ public class ItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                try{
+                    LayoutInflater li = LayoutInflater.from(getActivity());
+                    View myView = li.inflate(R.layout.add_flavor_dialog, null);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                    alertDialogBuilder.setView(myView);
+
+                    final EditText etFlavorName = myView.findViewById(R.id.etFlavorName);
+                    final EditText etPrice = myView.findViewById(R.id.etPrice);
+
+                    alertDialogBuilder.setTitle("Add Flavor");
+                    alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
+                    alertDialogBuilder
+                            .setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                                try {
+                                                    realm.beginTransaction();
+                                                    Flavors flavor = new Flavors();
+                                                    flavor.setFlavorName(etFlavorName.getText().toString());
+                                                    flavor.setPrice(etPrice.getText().toString());
+                                                    realm.copyToRealmOrUpdate(flavor);
+                                                    realm.commitTransaction();
+                                                }catch (Exception ex){
+                                                    realm.commitTransaction();
+                                                }
+                                            }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    }).setNeutralButton("View Flavors", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            final ArrayList<String>  allFlavors = itemObj.getFlavors();
+                            String[] Flavor = new String[allFlavors.size()];
+                            Flavor = allFlavors.toArray(new String[allFlavors.size()]);
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Flavors");
+                            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            builder.setItems(Flavor, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+                            final AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }catch (Exception ex){
+                    Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return x;

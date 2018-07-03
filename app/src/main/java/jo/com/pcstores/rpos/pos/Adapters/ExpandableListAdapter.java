@@ -3,10 +3,8 @@ package jo.com.pcstores.rpos.pos.Adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +23,6 @@ import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
-import jo.com.pcstores.rpos.pos.Classes.OrderList;
 
 /**
  * Created by Dev6 on 3/14/2018.
@@ -86,7 +82,7 @@ try{
             public void onClick(View view) {
                 try{
                     LayoutInflater li = LayoutInflater.from(_context);
-                    View myView = li.inflate(R.layout.fragment_add_item_dialog, null);
+                    View myView = li.inflate(R.layout.add_item_dialog, null);
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(_context);
                     alertDialogBuilder.setView(myView);
 

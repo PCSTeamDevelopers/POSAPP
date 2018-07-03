@@ -8,9 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -49,9 +46,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
-import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Classes.User;
 
@@ -59,24 +53,21 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView tvPw;
     TextView tvName;
-    Spinner etName;
+    Spinner spName;
     EditText etPw;
-    EditText container;
+    EditText etName;
     ImageView imgName;
     ImageView imgPw;
     Button btnLogin;
     Button btnRegistration;
-    ArrayList<User> Name;
     Switch swKeepLogged;
     Realm realm;
-
     SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//test
         realm = Realm.getDefaultInstance();
         //Control orientation depending on size
         int screenSize = getResources().getConfiguration().screenLayout &Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -91,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-//Randa
         //HIDE ACTIONBAR
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -103,15 +93,15 @@ public class LoginActivity extends AppCompatActivity {
         tvPw = findViewById(R.id.tvPw);
         tvName = findViewById(R.id.tvName);
         etPw = findViewById(R.id.etPw);
-        container = findViewById(R.id.container);
+        etName = findViewById(R.id.etName);
         imgName = findViewById(R.id.imgName);
         imgPw = findViewById(R.id.imgPw);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistration = findViewById(R.id.btnRegistration);
         swKeepLogged = findViewById(R.id.swKeepLogged);
 
-//        container.clearFocus();
-//        etPw.clearFocus();
+        etName.clearFocus();
+        etPw.clearFocus();
 
         //SET ANIMATION FOR IMAGES
 
@@ -123,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-        container.setOnTouchListener(new View.OnTouchListener() {
+        etName.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Animation a = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.translatefadexy);
@@ -143,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        container.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if(!hasFocus) {
@@ -196,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                         l.add (u);
                     }
                     // }
-                    etName.setAdapter(new ArrayAdapter<User>(LoginActivity.this,R.layout.custom_spinner_login,R.id.Name, l));
+                    spName.setAdapter(new ArrayAdapter<User>(LoginActivity.this,R.layout.custom_spinner_login,R.id.Name, l));
                 }catch (JSONException e){e.printStackTrace();}
             }
         }, new Response.ErrorListener() {
@@ -292,7 +282,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View v){
         try{
             realm.beginTransaction();
-            User result = realm.where(User.class).equalTo("name", container.getText().toString()).findFirst();
+            User result = realm.where(User.class).equalTo("name", etName.getText().toString()).findFirst();
             if ((result == null)){
                 Toast.makeText(getApplicationContext(), "User name is Invalid!", Toast.LENGTH_SHORT).show();
                 realm.commitTransaction();
@@ -307,6 +297,7 @@ public class LoginActivity extends AppCompatActivity {
                         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                         SharedPreferences.Editor pen = sharedPreferences.edit();
                         pen.putBoolean("keep me logged", swKeepLogged.isChecked());
+                        pen.putString("cashier name", etName.getText().toString());
                         pen.commit();
                     }
                     Intent i = new Intent(LoginActivity.this, NavMainActivity.class);
@@ -345,6 +336,12 @@ public class LoginActivity extends AppCompatActivity {
                                     data.setPass(etPw.getText().toString().toLowerCase());
                                     realm.copyToRealmOrUpdate(data);
                                     realm.commitTransaction();
+                                    //add username to shared preference
+                                    sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                                    SharedPreferences.Editor pen = sharedPreferences.edit();
+                                    pen.putString("cashier name", etName.getText().toString());
+                                    pen.commit();
+
                                     Toast.makeText(getApplicationContext(), "User Successfully added", Toast.LENGTH_SHORT).show();
 
                                     //show the main activity
@@ -374,4 +371,5 @@ public class LoginActivity extends AppCompatActivity {
 
         return nextId;
     }
+
     }

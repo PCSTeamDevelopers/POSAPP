@@ -8,17 +8,17 @@ public class Flavors extends RealmObject {
 
     @PrimaryKey
     @Required
-    String FlavorID;
+//    String FlavorID;
     String FlavorName;
     String Price;
 
-    public String getFlavorID() {
-        return FlavorID;
-    }
-
-    public void setFlavorID(String flavorID) {
-        FlavorID = flavorID;
-    }
+//    public String getFlavorID() {
+//        return FlavorID;
+//    }
+//
+//    public void setFlavorID(String flavorID) {
+//        FlavorID = flavorID;
+//    }
 
     public String getFlavorName() {
         return FlavorName;

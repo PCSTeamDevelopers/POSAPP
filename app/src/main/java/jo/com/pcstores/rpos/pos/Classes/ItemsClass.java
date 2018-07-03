@@ -3,12 +3,17 @@ package jo.com.pcstores.rpos.pos.Classes;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.realm.Realm;
@@ -28,8 +33,11 @@ public class ItemsClass {
 
     public byte[] emptyArray() {
         try {
-            Drawable primary = c.getResources().getDrawable(R.drawable.itemborder);
-            Bitmap bitmap = ((BitmapDrawable) primary).getBitmap();
+            Bitmap bitmap = Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint = new Paint();
+            paint.setColor(Color.parseColor("#134f5c"));
+            canvas.drawRect(0F, 0F, (float) 10, (float) 10, paint);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             bitmapdata = stream.toByteArray();
@@ -178,4 +186,57 @@ public class ItemsClass {
         return emptybitmap;
     }
 
+    public ArrayList<String> getFlavors(){
+        ArrayList<String> flavors= new ArrayList<>();
+        try {
+            realm.beginTransaction();
+            RealmResults<Flavors> results = realm.where(Flavors.class).findAll();
+            results.load();
+            for (int i = 0; i<results.size(); i++){
+                flavors.add(results.get(i).getFlavorName());
+            }
+            realm.commitTransaction();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flavors;
+    }
+
+    public String getMaxInvoiceNo(){
+        String invoiceNo = "";
+        try {
+            realm.beginTransaction();
+            Invoices invoices = realm.where(Invoices.class).equalTo("status","Pending").findFirst();
+            if (invoices == null){
+                Invoices obj = realm.where(Invoices.class).findFirst();
+                if (obj == null){
+                 invoiceNo = "1";
+                 insertInvoice(invoiceNo);
+                }else {
+                    invoiceNo = String.valueOf(Integer.parseInt(obj.getInvoiceno()) + 1);
+                    insertInvoice(invoiceNo);
+                }
+            }else{
+                invoiceNo= invoices.getInvoiceno();
+            }
+            realm.commitTransaction();
+            return invoiceNo;
+        }catch (Exception e){
+            realm.cancelTransaction();
+            e.printStackTrace();
+        }
+        return invoiceNo;
+    }
+    public void insertInvoice(String invoiceno){
+        try{
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+            Invoices obj = new Invoices();
+            obj.setInvoiceno(invoiceno);
+            obj.setActualtime(timeStamp);
+            obj.setStatus("Pending");
+            realm.copyToRealmOrUpdate(obj);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

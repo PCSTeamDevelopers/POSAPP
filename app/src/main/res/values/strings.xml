@@ -91,4 +91,5 @@
     <string name="Save">Save</string>
     <string name="UnderCategory">Under Category</string>
     <string name="CategoryCode">Category Code</string>
+    <string name="FlavorName">Flavor Name</string>
 </resources>

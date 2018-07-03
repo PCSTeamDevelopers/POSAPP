@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,27 +22,35 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Classes.Flavors;
 import jo.com.pcstores.rpos.pos.Classes.Items;
+import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
 import jo.com.pcstores.rpos.pos.Classes.OrderList;
+import jo.com.pcstores.rpos.pos.Fragments.MainFragment;
+import jo.com.pcstores.rpos.pos.Interfaces.ItemsInterface;
 
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data> {
 
     ArrayList<OrderList> items;
     ArrayList<Integer> checkedFlavor = new ArrayList<>();
     Context c;
+    ItemsInterface inter;
+    Fragment frag;
     List<View> itemViewList = new ArrayList<>();
     Hashtable<String,Integer> orderlist = new Hashtable<>();
-    Flavors flavors = new Flavors();
-
     Float subtotal=0.0f;
     Float taxtotal=0.0f;
     Float discounttotal=0.0f;
     Float grandtotal=0.0f;
     Realm realm;
+    ItemsClass itemObj = new ItemsClass(c);
+    Hashtable<String ,String> hsQtyCounter = new Hashtable<>();
 
-    public OrderListAdapter(Context c, ArrayList<OrderList> item){
+    public OrderListAdapter(Context c, ArrayList<OrderList> item, Fragment frag){
+        this.frag = frag;
+        inter = (ItemsInterface) frag;
         items = item;
         this.c = c;
     }
@@ -65,7 +74,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
         }
     }
 
-
     @Override
     public data onCreateViewHolder(ViewGroup parent, int viewType) {
         final View itemView = LayoutInflater.from(parent.getContext())
@@ -80,115 +88,146 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
 
     @Override
     public void onBindViewHolder(final data holder, final int position) {
-        final String[] Flavor = {"Flavor 1", "Flavor 2", "Flavor 3", "Flavor 4", "Flavor 5"};
-        final boolean[] checkedItems = {false, false, false, false, false};
+        try {
+            //manage flavors
+            final ArrayList<String>  allFlavors = itemObj.getFlavors();
+            String[] Flavor1 = new String[allFlavors.size()];
+            Flavor1 = allFlavors.toArray(new String[allFlavors.size()]);
+            final String[] Flavor = Flavor1;
+            final boolean[] checkedItems = new boolean[allFlavors.size()];
 
+            //Binding
             holder.txtItemName.setText(items.get(position).getItem());
             holder.txtItemPrice.setText(items.get(position).getPrice());
-            holder.txtQty.setText(items.get(position).getQty());
-            //holder.txtFlavor.setText(items.get(position).getFlavors());
-            orderlist.put(holder.txtItemName.getText().toString(), position);
-
-//            String rowNum = ((Integer) (position + 1)).toString();
-//            holder.txtnum.setText(rowNum);
-
-        if (holder.txtFlavor.getText().equals("")) {
-            holder.txtFlavor.setVisibility(View.GONE);
-        }else{
-            holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_on));
-        }
-        //OnClick Events
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                remove(position);
-                }catch (Exception ex) {
-                    ex.printStackTrace();
-                    Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            //set qty and totals to orderlist class
+            OrderList orderListObj = new OrderList("","","");
+            String qty = "1";
+            String itemName = items.get(position).getItem();
+            if (hsQtyCounter.containsKey(itemName)) {
+                Integer itemqty = (Integer.parseInt(hsQtyCounter.get(itemName).toString())) + 1;
+                qty = itemqty.toString();
             }
-        });
+            String subtotal = String.valueOf((Float.parseFloat(items.get(position).getPrice())) * (Float.parseFloat(qty.toString())));
+            String tax = String.valueOf(Float.parseFloat(items.get(position).getTax()) * (Float.parseFloat(subtotal)));
+            String grandtotal = String.valueOf((Float.parseFloat(subtotal)) + (Float.parseFloat(tax)));
+            orderListObj.setItem(itemName);
+            orderListObj.setPrice(items.get(position).getPrice());
+            orderListObj.setQty(qty);
+            orderListObj.setSubtotal(subtotal);
+            orderListObj.setTaxTotal(tax);
+            orderListObj.setGrandtotal(grandtotal);
+            orderListObj.setDiscount("0.00");
+            items.set(position,orderListObj);
 
-        holder.btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.txtQty.getText().equals("1")){
-                    holder.txtQty.setText("1");
-                }else{
-                    Integer qty =(Integer.parseInt(holder.txtQty.getText().toString())) - 1 ;
+            holder.txtQty.setText(qty);
+            orderlist.put(itemName, position);
+            hsQtyCounter.put(itemName,qty);
+
+            if (holder.txtFlavor.getText().equals("")) {
+                holder.txtFlavor.setVisibility(View.GONE);
+            } else {
+                holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_on));
+            }
+            //OnClick Events
+            holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        remove(position, holder.txtItemName.getText().toString());
+                        inter.totalsInterface(getSubTotal(),getTaxTotal(),getDiscountTotal(),getGrandTotal(),c);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            holder.btnMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (holder.txtQty.getText().equals("1")) {
+                        holder.txtQty.setText("1");
+                    } else {
+                        Integer qty = (Integer.parseInt(holder.txtQty.getText().toString())) - 1;
+                        holder.txtQty.setText(qty.toString());
+                    }
+                    //itemAdapterObj.updateQty(holder.txtItemName.getText().toString(),holder.txtQty.getText().toString());// here update the item qty on items hashtable
+                    inter.totalsInterface(getSubTotal(),getTaxTotal(),getDiscountTotal(),getGrandTotal(),c);// here update expandable list totals
+                }
+            });
+
+            holder.btnPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Integer qty = (Integer.parseInt(holder.txtQty.getText().toString())) + 1;
                     holder.txtQty.setText(qty.toString());
+                    //itemAdapterObj.updateQty(holder.txtItemName.getText().toString(),holder.txtQty.getText().toString());// here update the item qty on items hashtable
+                    inter.totalsInterface(getSubTotal(),getTaxTotal(),getDiscountTotal(),getGrandTotal(),c);// here update expandable list totals
                 }
-            }
-        });
+            });
 
-        holder.btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Integer qty = (Integer.parseInt(holder.txtQty.getText().toString())) + 1 ;
-                holder.txtQty.setText(qty.toString());
-            }
-        });
+            holder.btnFlavor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        holder.txtFlavor.setVisibility(View.VISIBLE);
+                        checkedFlavor = new ArrayList<>();
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(c);
+                        builder.setIcon(R.drawable.select);
+                        builder.setTitle("Select Flavors");
+                        builder.setPositiveButton(android.R.string.ok, null);
 
-        holder.btnFlavor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.txtFlavor.setVisibility(View.VISIBLE);
-                checkedFlavor = new ArrayList<>();
-                final AlertDialog.Builder builder = new AlertDialog.Builder(c);
-                builder.setIcon(R.drawable.logo);
-                builder.setTitle("Select Flavors");
-                builder.setPositiveButton(android.R.string.ok, null);
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Integer checkedItem = ((AlertDialog) dialogInterface).getListView().getCheckedItemCount();
+                                if (checkedItem > 0) {
+                                    String flavors = "- ";
+                                    for (int c = 0; c < checkedFlavor.size(); c++) {
+                                        flavors = flavors + Flavor[checkedFlavor.get(c)] + ", ";
+                                    }
+                                    //here substring flavors to remove the last ","
+                                    flavors = flavors.substring(0, flavors.length() - 2);
+                                    //items.get(position).setFlavors(flavors);
+                                    holder.txtFlavor.setText(flavors);
 
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Integer checkedItem = ((AlertDialog) dialogInterface).getListView().getCheckedItemCount();
-                        if (checkedItem > 0) {
-                            String flavors = "- ";
-                            for (int c = 0; c < checkedFlavor.size();c++){
-                                flavors = flavors + Flavor[checkedFlavor.get(c)] +", ";
+                                    //change btn flavor star color to yellow
+                                    holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_on));
+                                    Toast.makeText(c, R.string.Flavorsadded, Toast.LENGTH_LONG).show();
+                                } else {
+                                    holder.txtFlavor.setVisibility(View.GONE);
+                                    holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_off));
+                                    Toast.makeText(c, R.string.NoFlavorsSelected, Toast.LENGTH_LONG).show();
+                                }
                             }
-                            //here substring flavors to remove the last ","
-                            flavors = flavors.substring(0,flavors.length()-2);
-                            //items.get(position).setFlavors(flavors);
-                            holder.txtFlavor.setText(flavors);
-
-                            //change btn flavor star color to yellow
-                            holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_on));
-                            Toast.makeText(c, R.string.Flavorsadded, Toast.LENGTH_LONG).show();
-                        } else {
-                            holder.txtFlavor.setVisibility(View.GONE);
-                            holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_off));
-                            Toast.makeText(c, R.string.NoFlavorsSelected, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setMultiChoiceItems(Flavor, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
-                        //((AlertDialog) dialogInterface).getButton(AlertDialog.BUTTON1).setEnabled(true); //positive button enabled
-                        if (isChecked){
-                            if(! checkedFlavor.contains(index)){
-                                checkedFlavor.add(index);
-                            }else{
-                                checkedFlavor.remove(index);
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                             }
-                        }
-                    }
-                });
-
-
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-
-                //dialog.getButton(AlertDialog.BUTTON1).setEnabled(false); //positive button disabled
-            }
-        });
+                        }).setMultiChoiceItems(Flavor, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int index, boolean isChecked) {
+                                //((AlertDialog) dialogInterface).getButton(AlertDialog.BUTTON1).setEnabled(true); //positive button enabled
+                                if (isChecked) {
+                                    if (!checkedFlavor.contains(index)) {
+                                        checkedFlavor.add(index);
+                                    } else {
+                                        checkedFlavor.remove(index);
+                                    }
+                                }
+                            }
+                        });
+                    final AlertDialog dialog = builder.create();
+                    dialog.show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -221,7 +260,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
         }
     }
 
-    public void remove(int position) {
+    public void remove(int position, String itemName) {
         try {
             Integer size = getItemCount();
             items.remove(position);
@@ -234,6 +273,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                     }
                     notifyItemMoved(position+1, size-1);
                 }
+
+                orderlist.remove(itemName);// here delete the item from orderlist hashtable
+                hsQtyCounter.remove(itemName);// here delete item from qty hashtable to reset qty
         }catch (Exception ex) {
             ex.printStackTrace();
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -260,7 +302,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     public String getTaxTotal(){
         taxtotal = 0.0f;
         for (int i =0; i < items.size();i++){
-            taxtotal = taxtotal + (Float.valueOf(items.get(i).getTax().toString()));
+            taxtotal = taxtotal + (Float.valueOf(items.get(i).getTaxTotal().toString()));
         }
         return taxtotal.toString();
     }
@@ -280,4 +322,5 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
         }
         return grandtotal.toString();
     }
+
 }

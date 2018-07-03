@@ -73,6 +73,10 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
             itemView = null;
         }
 
+        public RecItemAdapter() {
+
+    }
+
     class  viewitem extends RecyclerView.ViewHolder
         {
             //Declare
@@ -91,6 +95,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
             }
 
         }
+
         @Override
         public viewitem onCreateViewHolder(final ViewGroup parent, int viewType) {
             itemView = LayoutInflater.from(parent.getContext())
@@ -146,27 +151,27 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                     try {
                         String itemName = holder.txtItemName.getText().toString();
                         String itemPrice = holder.txtItemPrice.getText().toString();
-                        String qty = "1";
-                        if (counter.containsKey(itemName)) {
-                            Integer itemqty = (Integer.parseInt(counter.get(itemName).toString())) + 1;
-                            qty = itemqty.toString();
-                        }
+//                        String qty = "1";
+//                        if (counter.containsKey(itemName)) {
+//                            Integer itemqty = (Integer.parseInt(counter.get(itemName).toString())) + 1;
+//                            qty = itemqty.toString();
+//                        }
                         //Integer Price = ((Integer.parseInt(itemPrice.toString())) * (Integer.parseInt(qty.toString())));
-                        String subtotal = String.valueOf((Float.parseFloat(itemPrice.toString())) * (Float.parseFloat(qty.toString())));
-                        String tax = String.valueOf(Float.parseFloat(items.get(position).getTax()) * (Float.parseFloat(subtotal)));
-                        String grandtotal = String.valueOf((Float.parseFloat(subtotal)) + (Float.parseFloat(tax)));
+//                        String subtotal = String.valueOf((Float.parseFloat(itemPrice.toString())) * (Float.parseFloat(qty.toString())));
+                        String tax = items.get(position).getTax();
+//                        String grandtotal = String.valueOf((Float.parseFloat(subtotal)) + (Float.parseFloat(tax)));
                         orderObj = new ArrayList<>();
-                        OrderList obj = new OrderList(itemName, itemPrice, qty);
+                        OrderList obj = new OrderList(itemName, itemPrice, "");
                         obj.setItem(itemName);
                         obj.setPrice(itemPrice);
-                        obj.setQty(qty);
-                        obj.setSubtotal(subtotal);
+                       // obj.setQty(qty);
+//                        obj.setSubtotal(subtotal);
                         obj.setTax(tax);
-                        obj.setDiscount("0.00");
-                        obj.setGrandtotal(grandtotal);
+                        //obj.setDiscount("0.00");
+//                        obj.setGrandtotal(grandtotal);
                         orderObj.add(obj);
+//                        counter.put(itemName, qty);
                         inter.orderInterface(orderObj, c);
-                        counter.put(itemName, qty);
 
                     } catch (Exception ex) {
                         Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -205,4 +210,20 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
             e.printStackTrace();
         }
     }
+
+//    public void remove(String itemName){
+//            try{
+//                counter.remove(itemName);
+//            } catch (Exception ex) {
+//                Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//    }
+//
+//    public void updateQty(String itemName, String qty){
+//        try{
+//            counter.put(itemName, qty);
+//        } catch (Exception ex) {
+//            Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }

@@ -9,5 +9,11 @@
             android:defaultValue="false"
             android:key="chk_keep_me_logged"
             android:title="keep me logged" />
+        <EditTextPreference
+            android:defaultValue="Default value"
+            android:key="cashierName"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="cashier name" />
     </PreferenceCategory>
 </PreferenceScreen>

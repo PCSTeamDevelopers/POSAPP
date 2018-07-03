@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,16 +29,20 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
+import jo.com.pcstores.rpos.pos.Activities.NavMainActivity;
+import jo.com.pcstores.rpos.pos.Activities.SplashActivity;
 import jo.com.pcstores.rpos.pos.Adapters.ExpandableListAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.OrderListAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.RecCatAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.RecItemAdapter;
+import jo.com.pcstores.rpos.pos.Classes.Invoices;
 import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
 import jo.com.pcstores.rpos.pos.Classes.OrderList;
@@ -55,28 +61,20 @@ public class MainFragment extends Fragment implements ItemsInterface {
     FloatingActionButton btnPay;
     FloatingActionButton btnPrepare;
     FloatingActionButton btnCancel;
-
     RecyclerView recItems;
     RecItemAdapter recAdapter;
     RecyclerView recCategories;
     RecCatAdapter recCatAdapter;
-
     RecyclerView recOrderList;
     OrderListAdapter adapter;
-
     ExpandableListAdapter listAdapter;
     ExpandableListView expList;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-
     Realm realm;
     ItemsClass itemObj = new ItemsClass(getContext());
-
     ArrayList<OrderList> items;
     Context c;
-
-    Bitmap photo;
-    private static final int CAMERA_REQUEST = 1888;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,10 +88,13 @@ public class MainFragment extends Fragment implements ItemsInterface {
 
         ////Edit ActionBar
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        String invoiceNo = "1001.0000001";
-        String cashierName = "Cashier";
-        actionBar.setTitle("Invoice# :" + invoiceNo);
-        actionBar.setSubtitle("Cashier :" + cashierName);
+        //read cashier name from shared Preference
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String cashierName = sharedPreferences.getString("cashier name","");
+        //get the invoiceno
+        String invoiceNo = itemObj.getMaxInvoiceNo();
+        actionBar.setTitle("Invoice# : " + invoiceNo);
+        actionBar.setSubtitle("Cashier : " + cashierName);
        // actionBar.setLogo(getResources().getDrawable(R.drawable.logo));
 
 
@@ -198,7 +199,7 @@ public class MainFragment extends Fragment implements ItemsInterface {
             try{
             Integer position = recOrderList.getChildCount();
             if (position == 0){
-                adapter =new OrderListAdapter(c,items);
+                adapter =new OrderListAdapter(c,items,MainFragment.this);
             } else{
                 Integer oldpos = adapter.checkItem(0,items);
                 if (oldpos > -1){
@@ -222,8 +223,6 @@ public class MainFragment extends Fragment implements ItemsInterface {
             listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
             expList.setAdapter(listAdapter);
             expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
-            //expList.expandGroup(0);
-            expList.collapseGroup(0);
             } catch (Exception ex) {
                 Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -265,6 +264,18 @@ public class MainFragment extends Fragment implements ItemsInterface {
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public void totalsInterface(String subtotal, String taxtotal, String discounttotal, String grandtotal, Context c) {
+        try{
+            totalExpList(subtotal,taxtotal,discounttotal,grandtotal);
+            listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+            expList.setAdapter(listAdapter);
+            expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
+        } catch (Exception ex) {
+            Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

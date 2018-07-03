@@ -11,6 +11,7 @@ public class OrderList {
     private String Qty;
     private String Subtotal;
     private String Tax;
+    private String TaxTotal;
     private String Discount;
     private String Grandtotal;
 
@@ -18,6 +19,13 @@ public class OrderList {
         Item = item;
         Price = price;
         Qty = qty;
+    }
+    public String getTaxTotal() {
+        return TaxTotal;
+    }
+
+    public void setTaxTotal(String taxTotal) {
+        TaxTotal = taxTotal;
     }
 
     public String getSubtotal() {

@@ -23,13 +23,9 @@ public class Items extends RealmObject {
     private String itemName;
     private String itemPrice;
     private byte[] itemImage;
-    private String itemQty;
-    private String category;
     private Integer itemType;
     private String father;
     private String tax;
-
-
 
     public String getTax() {
         return tax;
@@ -61,22 +57,6 @@ public class Items extends RealmObject {
 
     public void setItemId(String itemId) {
         this.itemId = itemId;
-    }
-
-    public String getItemQty() {
-        return itemQty;
-    }
-
-    public void setItemQty(String itemQty) {
-        this.itemQty = itemQty;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getItemName() {
