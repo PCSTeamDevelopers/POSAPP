@@ -151,6 +151,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                     try {
                         String itemName = holder.txtItemName.getText().toString();
                         String itemPrice = holder.txtItemPrice.getText().toString();
+
 //                        String qty = "1";
 //                        if (counter.containsKey(itemName)) {
 //                            Integer itemqty = (Integer.parseInt(counter.get(itemName).toString())) + 1;
