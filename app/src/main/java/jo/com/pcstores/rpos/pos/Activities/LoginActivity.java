@@ -75,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
-            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
+//            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                break;
             default:
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }

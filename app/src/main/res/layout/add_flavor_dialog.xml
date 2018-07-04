@@ -25,7 +25,7 @@
                 android:layout_margin="5dp"
                 android:ems="10"
                 android:hint="@string/Price"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
     </ScrollView>

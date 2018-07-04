@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/RL"
-    android:layout_width="142dp"
-    android:layout_height="85dp"
+    android:layout_width="120dp"
+    android:layout_height="70dp"
     android:layout_marginBottom="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
@@ -17,8 +17,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgItem"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -39,13 +39,13 @@
         android:layout_toEndOf="@+id/imgItem"
         android:paddingLeft="2dp"
         android:text="@string/TextView"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/imgOptions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="4dp"
@@ -58,19 +58,17 @@
 
     <TextView
         android:id="@+id/txtItemPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="63dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="false"
         android:layout_marginRight="6dp"
-        android:layout_toEndOf="@+id/imgItem"
         android:paddingBottom="2dp"
         android:paddingLeft="2dp"
-        android:paddingRight="2dp"
         android:paddingTop="2dp"
         android:text="@string/TextView"
-        android:textAlignment="center" />
+        android:textAlignment="textEnd"
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

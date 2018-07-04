@@ -13,8 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import java.util.Locale;
-
 import jo.com.pcstores.rpos.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -33,9 +31,9 @@ public class SplashActivity extends AppCompatActivity {
             case Configuration.SCREENLAYOUT_SIZE_XLARGE:
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 break;
-            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
+//            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//                break;
             default:
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }

@@ -36,7 +36,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imgGif"
         android:layout_width="0dp"
-        android:layout_height="230dp"
+        android:layout_height="0dp"
         android:background="@color/cardview_light_background"
         android:contentDescription="@string/todo"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
@@ -78,7 +78,7 @@
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/buttonselectionreverse"
         android:onClick="login"
@@ -92,7 +92,7 @@
     <Button
         android:id="@+id/btnRegistration"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/buttonselection"
         android:onClick="registration"
