@@ -47,6 +47,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import jo.com.pcstores.rpos.R;
+import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
 import jo.com.pcstores.rpos.pos.Classes.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -282,7 +283,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View v){
         try{
             realm.beginTransaction();
-            User result = realm.where(User.class).equalTo("name", etName.getText().toString()).findFirst();
+            User result = realm.where(User.class).equalTo("name", etName.getText().toString().toLowerCase()).findFirst();
             if ((result == null)){
                 Toast.makeText(getApplicationContext(), "User name is Invalid!", Toast.LENGTH_SHORT).show();
                 realm.commitTransaction();
@@ -299,6 +300,7 @@ public class LoginActivity extends AppCompatActivity {
                         pen.putBoolean("keep me logged", swKeepLogged.isChecked());
                         pen.putString("cashier name", etName.getText().toString());
                         pen.commit();
+                        GlobalVar.CashierName = etName.getText().toString();
                     }
                     Intent i = new Intent(LoginActivity.this, NavMainActivity.class);
                     startActivity(i);
@@ -341,7 +343,7 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor pen = sharedPreferences.edit();
                                     pen.putString("cashier name", etName.getText().toString());
                                     pen.commit();
-
+                                    GlobalVar.CashierName = etName.getText().toString();
                                     Toast.makeText(getApplicationContext(), "User Successfully added", Toast.LENGTH_SHORT).show();
 
                                     //show the main activity

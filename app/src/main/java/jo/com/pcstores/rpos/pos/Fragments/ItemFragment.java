@@ -53,7 +53,7 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View x =  inflater.inflate(R.layout.fragment_item, container, false);
+        View x = inflater.inflate(R.layout.fragment_item, container, false);
 
         realm = Realm.getDefaultInstance();
 
@@ -70,8 +70,8 @@ public class ItemFragment extends Fragment {
         prepareListData();
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
         expList.setAdapter(listAdapter);
-        expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
-        for (int i = 0;i<prepareCategoryArray().size();i++){
+        expList.setGroupIndicator(getResources().getDrawable(R.drawable.custom_expandable));
+        for (int i = 0; i < prepareCategoryArray().size(); i++) {
             expList.expandGroup(i);
         }
 
@@ -79,7 +79,7 @@ public class ItemFragment extends Fragment {
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     LayoutInflater li = LayoutInflater.from(getActivity());
                     View myView = li.inflate(R.layout.add_category_dialog, null);
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -90,27 +90,27 @@ public class ItemFragment extends Fragment {
                     final EditText etCategoryName = myView.findViewById(R.id.etCategoryName);
                     final Spinner spCategory = myView.findViewById(R.id.spCategory);
 
-                    spCategory.setAdapter(new ArrayAdapter<String>(getActivity(),R.layout.custom_spinner_login,R.id.Name,itemObj.getMainCategories()));
+                    spCategory.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, itemObj.getMainCategories()));
 
                     alertDialogBuilder.setTitle("Add Category");
                     alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                     alertDialogBuilder
                             .setPositiveButton("OK",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                            itemObj.addCategory(etCategoryID.getText().toString(),etCategoryName.getText().toString(),spCategory.getSelectedItem().toString());
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            itemObj.addCategory(etCategoryID.getText().toString(), etCategoryName.getText().toString(), spCategory.getSelectedItem().toString());
                                             prepareListData();
                                         }
                                     })
                             .setNegativeButton("Cancel",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
+                                        public void onClick(DialogInterface dialog, int id) {
                                             dialog.cancel();
                                         }
                                     });
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -119,7 +119,7 @@ public class ItemFragment extends Fragment {
         btnItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     LayoutInflater li = LayoutInflater.from(getActivity());
                     View myView = li.inflate(R.layout.add_item_dialog, null);
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -131,30 +131,30 @@ public class ItemFragment extends Fragment {
                     final Spinner spCategory = myView.findViewById(R.id.spCategory);
                     final Spinner spTax = myView.findViewById(R.id.spTax);
 
-                    spCategory.setAdapter(new ArrayAdapter<String>(getActivity(),R.layout.custom_spinner_login,R.id.Name,itemObj.getAllCategories()));
+                    spCategory.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, itemObj.getAllCategories()));
 
-                    String [] tax = {"0","0.04","0.16"};
-                    spTax.setAdapter(new ArrayAdapter<String>(getActivity(),R.layout.custom_spinner_login,R.id.Name,tax));
+                    String[] tax = {"0", "0.04", "0.16"};
+                    spTax.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, tax));
 
                     alertDialogBuilder.setTitle("Add Item");
                     alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                     alertDialogBuilder
                             .setPositiveButton("OK",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                            itemObj.addItem(etItemID.getText().toString(),etItemName.getText().toString(),etPrice.getText().toString(),spCategory.getSelectedItem().toString(),spTax.getSelectedItem().toString());
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            itemObj.addItem(etItemID.getText().toString(), etItemName.getText().toString(), etPrice.getText().toString(), spCategory.getSelectedItem().toString(), spTax.getSelectedItem().toString());
                                             prepareListData();
                                         }
                                     })
                             .setNegativeButton("Cancel",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
+                                        public void onClick(DialogInterface dialog, int id) {
                                             dialog.cancel();
                                         }
                                     });
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -164,7 +164,7 @@ public class ItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                try{
+                try {
                     LayoutInflater li = LayoutInflater.from(getActivity());
                     View myView = li.inflate(R.layout.add_flavor_dialog, null);
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
@@ -178,28 +178,28 @@ public class ItemFragment extends Fragment {
                     alertDialogBuilder
                             .setPositiveButton("OK",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                                try {
-                                                    realm.beginTransaction();
-                                                    Flavors flavor = new Flavors();
-                                                    flavor.setFlavorName(etFlavorName.getText().toString());
-                                                    flavor.setPrice(etPrice.getText().toString());
-                                                    realm.copyToRealmOrUpdate(flavor);
-                                                    realm.commitTransaction();
-                                                }catch (Exception ex){
-                                                    realm.commitTransaction();
-                                                }
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            try {
+                                                realm.beginTransaction();
+                                                Flavors flavor = new Flavors();
+                                                flavor.setFlavorName(etFlavorName.getText().toString());
+                                                flavor.setPrice(etPrice.getText().toString());
+                                                realm.copyToRealmOrUpdate(flavor);
+                                                realm.commitTransaction();
+                                            } catch (Exception ex) {
+                                                realm.commitTransaction();
                                             }
+                                        }
                                     })
                             .setNegativeButton("Cancel",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
+                                        public void onClick(DialogInterface dialog, int id) {
                                             dialog.cancel();
                                         }
                                     }).setNeutralButton("View Flavors", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            final ArrayList<String>  allFlavors = itemObj.getFlavors();
+                            final ArrayList<String> allFlavors = itemObj.getFlavors();
                             String[] Flavor = new String[allFlavors.size()];
                             Flavor = allFlavors.toArray(new String[allFlavors.size()]);
                             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -222,7 +222,7 @@ public class ItemFragment extends Fragment {
                     });
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -231,40 +231,49 @@ public class ItemFragment extends Fragment {
     }
 
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        try {
+            listDataHeader = new ArrayList<String>();
+            listDataChild = new HashMap<String, List<String>>();
 
-        ArrayList<Items> header = new ArrayList<>();
-        header = prepareCategoryArray();
-        // Adding child data
-        for (int i = 0;i<header.size();i++){
-            String name = header.get(i).getItemName();
-            listDataHeader.add(name);
-            List<String> items = new ArrayList<String>();
-            String data;
-            realm.beginTransaction();
-            RealmResults<Items> subItem = realm.where(Items.class).equalTo("father",itemObj.getItemId(name)).equalTo("itemType",1).findAll();
-            for (Items item: subItem){
-                data = item.getItemName();
-                items.add(data);
+            ArrayList<Items> header = new ArrayList<>();
+            header = prepareCategoryArray();
+            // Adding child data
+            for (int i = 0; i < header.size(); i++) {
+                String name = header.get(i).getItemName();
+                listDataHeader.add(name);
+                List<String> items = new ArrayList<String>();
+                String data;
+                realm.beginTransaction();
+                RealmResults<Items> subItem = realm.where(Items.class).equalTo("father", itemObj.getItemId(name)).equalTo("itemType", 1).findAll();
+                for (Items item : subItem) {
+                    data = item.getItemName();
+                    items.add(data);
+                }
+                realm.commitTransaction();
+                listDataChild.put(listDataHeader.get(i), items);
             }
-            realm.commitTransaction();
-            listDataChild.put(listDataHeader.get(i), items);
+        } catch (Exception ex) {
+            Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private ArrayList<Items> prepareCategoryArray() {
-        ArrayList<Items> items=new ArrayList<>();
-        Items item = new Items();
-        realm.beginTransaction();
-        RealmResults<Items> data = realm.where(Items.class).equalTo("itemType",0).findAll();
-        data.load();
-        for (Items obj: data){
-            item.setItemName(obj.getItemName());
-            items.add (obj);
+        ArrayList<Items> items = new ArrayList<>();
+        try {
+            Items item = new Items();
+            realm.beginTransaction();
+            RealmResults<Items> data = realm.where(Items.class).equalTo("itemType", 0).findAll();
+            data.load();
+            for (Items obj : data) {
+                item.setItemName(obj.getItemName());
+                items.add(obj);
+            }
+            realm.commitTransaction();
+        } catch (Exception ex) {
+            Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        realm.commitTransaction();
         return items;
 
     }
+
 }

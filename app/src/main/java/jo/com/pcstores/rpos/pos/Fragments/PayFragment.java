@@ -28,10 +28,15 @@ public class PayFragment extends Fragment {
     Button btnPrint;
 
     String Value;
+    String invoiceNo;
 
     TextView txtamount;
     TextView txtbalance;
     TextView txtchange;
+    TextView txtsubTotal;
+    TextView txttaxTotal;
+    TextView txtdiscountTotal;
+    TextView txtgrandTotal;
     Button btn0;
     Button btn1;
     Button btn2;
@@ -69,6 +74,11 @@ public class PayFragment extends Fragment {
         txtamount = x.findViewById(R.id.txtamount);
         txtbalance = x.findViewById(R.id.txtbalance);
         txtchange = x.findViewById(R.id.txtchange);
+        txtsubTotal = x.findViewById(R.id.txtSubotal);
+        txttaxTotal = x.findViewById(R.id.txtTaxTotal);
+        txtdiscountTotal = x.findViewById(R.id.txtDiscount);
+        txtgrandTotal = x.findViewById(R.id.txtNettotal);
+
         btn0 = x.findViewById(R.id.btn0);
         btn1 = x.findViewById(R.id.btn1);
         btn2 = x.findViewById(R.id.btn2);
@@ -88,6 +98,18 @@ public class PayFragment extends Fragment {
         btn100 = x.findViewById(R.id.btn100);
         btn010 = x.findViewById(R.id.btn010);
         btnExact = x.findViewById(R.id.btnexact);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            invoiceNo = bundle.getString("invoiceno");
+            //set totals texts
+            txtbalance.setText(bundle.getString("grandtotal"));
+            txtsubTotal.setText(bundle.getString("subtotal"));
+            txtdiscountTotal.setText( bundle.getString("discounttotal"));
+            txttaxTotal.setText(bundle.getString("taxtotal"));
+            txtgrandTotal.setText(bundle.getString("grandtotal"));
+        }
+
 
         //HOLD ONCLICK EVENTS
         btnc.setOnClickListener(new View.OnClickListener() {

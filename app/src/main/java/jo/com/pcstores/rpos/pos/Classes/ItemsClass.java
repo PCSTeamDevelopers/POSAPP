@@ -95,6 +95,12 @@ public class ItemsClass {
         return id;
     }
 
+    public String getItemPrice(String ItemName){
+        Items item = realm.where(Items.class).equalTo("itemName",ItemName).findFirst();
+        String price = item.getItemPrice();
+        return price;
+    }
+
     public void addItem(String id, String name,String price, String father,String tax){
         try {
             realm.beginTransaction();
@@ -202,41 +208,18 @@ public class ItemsClass {
         return flavors;
     }
 
-    public String getMaxInvoiceNo(){
-        String invoiceNo = "";
+    public String getFlavorPrice(String flavorName){
+        String price = "0";
         try {
             realm.beginTransaction();
-            Invoices invoices = realm.where(Invoices.class).equalTo("status","Pending").findFirst();
-            if (invoices == null){
-                Invoices obj = realm.where(Invoices.class).findFirst();
-                if (obj == null){
-                 invoiceNo = "1";
-                 insertInvoice(invoiceNo);
-                }else {
-                    invoiceNo = String.valueOf(Integer.parseInt(obj.getInvoiceno()) + 1);
-                    insertInvoice(invoiceNo);
-                }
-            }else{
-                invoiceNo= invoices.getInvoiceno();
-            }
+            Flavors results = realm.where(Flavors.class).equalTo("FlavorName",flavorName).findFirst();
+            results.load();
+            price = results.getPrice();
             realm.commitTransaction();
-            return invoiceNo;
-        }catch (Exception e){
-            realm.cancelTransaction();
-            e.printStackTrace();
-        }
-        return invoiceNo;
-    }
-    public void insertInvoice(String invoiceno){
-        try{
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-            Invoices obj = new Invoices();
-            obj.setInvoiceno(invoiceno);
-            obj.setActualtime(timeStamp);
-            obj.setStatus("Pending");
-            realm.copyToRealmOrUpdate(obj);
         }catch (Exception e){
             e.printStackTrace();
         }
+        return price;
     }
+
 }

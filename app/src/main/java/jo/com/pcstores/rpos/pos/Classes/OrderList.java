@@ -14,12 +14,22 @@ public class OrderList {
     private String TaxTotal;
     private String Discount;
     private String Grandtotal;
+    private String Flavors;
 
     public OrderList(String item, String price, String qty) {
         Item = item;
         Price = price;
         Qty = qty;
     }
+
+    public String getFlavors() {
+        return Flavors;
+    }
+
+    public void setFlavors(String flavors) {
+        Flavors = flavors;
+    }
+
     public String getTaxTotal() {
         return TaxTotal;
     }

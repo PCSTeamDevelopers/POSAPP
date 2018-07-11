@@ -44,6 +44,7 @@ import android.widget.Toast;
 import static android.app.Activity.RESULT_OK;
 
 import jo.com.pcstores.rpos.pos.Interfaces.OnActivityResult;
+import android.support.v7.app.AlertDialog.Builder;
 
 import static android.support.v4.graphics.TypefaceCompatUtil.getTempFile;
 import static java.security.AccessController.getContext;
@@ -103,36 +104,6 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
         itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.custom_rec_items, parent, false);
 
-        itemView.findViewById(R.id.imgOptions).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    final CharSequence[] options = {"Take Photo", "Choose From Gallery", "Cancel"};
-                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(c);
-                    builder.setTitle("Select Option");
-                    builder.setItems(options, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int item) {
-                            if (options[item].equals("Take Photo")) {
-                                dialog.dismiss();
-                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                ((Fragment) frag).startActivityForResult(intent, CAMERA_REQUEST);
-                            } else if (options[item].equals("Choose From Gallery")) {
-                                dialog.dismiss();
-                                Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                ((Fragment) frag).startActivityForResult(pickPhoto, SELECT_PICTURE);
-                            } else if (options[item].equals("Cancel")) {
-                                dialog.dismiss();
-                            }
-                        }
-                    });
-                    builder.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         return new viewitem(itemView);
     }
 
@@ -147,6 +118,45 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                 holder.img.setImageBitmap(bitmap);
             }
 
+            holder.imgOptions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        final CharSequence[] options = {"Take Photo", "Choose From Gallery","Delete Photo" ,"Cancel"};
+                        Builder builder = new Builder(c);
+                        builder.setTitle("Select Option");
+                        builder.setIcon(c.getResources().getDrawable(R.drawable.ic_menu_camera));
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int item) {
+                                if (options[item].equals("Take Photo")) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    ((Fragment) frag).startActivityForResult(intent, CAMERA_REQUEST);
+                                    holder.img.setImageBitmap(itemObj.getImage(items.get(position).getItemImage(),c));
+                                } else if (options[item].equals("Choose From Gallery")) {
+                                    dialog.dismiss();
+                                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                    ((Fragment) frag).startActivityForResult(pickPhoto, SELECT_PICTURE);
+                                    holder.img.setImageBitmap(itemObj.getImage(items.get(position).getItemImage(),c));
+                                } else if (options[item].equals("Delete Photo")) {
+                                    try{
+                                    byte[] emptyImage = itemObj.emptyArray();
+                                    itemObj.saveImage(itemObj.getItemId(holder.txtItemName.getText().toString()),itemObj.getImage(emptyImage,c));//save item image as color (without image)
+                                    holder.img.setImageBitmap(itemObj.getImage(emptyImage,c));//set empty image
+                                    dialog.dismiss();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                            }  else if (options[item].equals("Cancel")) {
+                                dialog.dismiss();}
+                        }});
+                        builder.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,6 +183,9 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                         obj.setTaxTotal(taxTotal);
                         obj.setDiscount("0.00");
                         obj.setGrandtotal(grandtotal);
+                        if (qty.equals("1")){
+                            obj.setFlavors("");
+                        }
                         orderObj.add(obj);
                         inter.orderInterface(orderObj, c);//add the orderlist to the interface to MainFragmnet
                         GlobalVar.hsQtycounter.put(itemName, qty);//add the qty to the qty hashtable counter
@@ -199,7 +212,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                 if (resultCode == RESULT_OK) {
                     if (requestCode == SELECT_PICTURE) {
                         Uri selectedImageUri = data.getData();
-                        imgItem.setImageURI(selectedImageUri);
+                        //imgItem.setImageURI(selectedImageUri);
 
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), selectedImageUri);
                         itemObj.saveImage(itemObj.getItemId(itemName), bitmap);
@@ -207,7 +220,8 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                 }
             } else if (requestCode == CAMERA_REQUEST) {
                 photo = (Bitmap) data.getExtras().get("data");
-                imgItem.setImageBitmap(photo);
+                //imgItem.setImageBitmap(photo);
+
                 itemObj.saveImage(itemObj.getItemId(itemName), photo);
             }
         } catch (Exception e) {

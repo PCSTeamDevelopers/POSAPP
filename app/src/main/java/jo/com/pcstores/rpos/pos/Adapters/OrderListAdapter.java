@@ -47,7 +47,6 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     Float grandtotal = 0.0f;
     Realm realm;
     ItemsClass itemObj = new ItemsClass(c);
-    Hashtable<String, String> hsQtyCounter = new Hashtable<>();
 
     public OrderListAdapter(Context c, ArrayList<OrderList> item, Fragment frag) {
         this.frag = frag;
@@ -95,6 +94,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
             holder.txtItemName.setText(items.get(position).getItem());
             holder.txtItemPrice.setText(items.get(position).getPrice());
             holder.txtQty.setText(items.get(position).getQty());
+            holder.txtFlavor.setText(items.get(position).getFlavors());
 
             orderlist.put(items.get(position).getItem(), position);//add the item to the orderlist hashtable
 
@@ -117,13 +117,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                 public void onClick(View view) {
                     try {
                         holder.txtFlavor.setVisibility(View.VISIBLE);
-                        checkedFlavor = new ArrayList<>();
+                        if (holder.txtFlavor.getText().equals("")) {
+                            checkedFlavor = new ArrayList<>();
+                        }
                         final AlertDialog.Builder builder = new AlertDialog.Builder(c);
                         builder.setIcon(R.drawable.select);
                         builder.setTitle("Select Flavors");
                         builder.setPositiveButton(android.R.string.ok, null);
-
-                        builder.setPositiveButton("Add Flavors", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Integer checkedItem = ((AlertDialog) dialogInterface).getListView().getCheckedItemCount();
@@ -133,9 +134,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                                     for (int c = 0; c < checkedFlavor.size(); c++) {
                                         flavors = flavors + Flavor[checkedFlavor.get(c)] + ", ";
                                     }
+
                                     //here substring flavors to remove the last ","
                                     flavors = flavors.substring(0, flavors.length() - 2);
                                     holder.txtFlavor.setText(flavors);
+                                    items.get(position).setFlavors(flavors);//update orderlist and set flavor value
 
                                     //change btn flavor star color to yellow
                                     holder.btnFlavor.setImageDrawable(c.getResources().getDrawable(android.R.drawable.btn_star_big_on));
@@ -157,9 +160,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                                 if (isChecked) {
                                     if (!checkedFlavor.contains(index)) {
                                         checkedFlavor.add(index);
-                                    } else {
-                                        checkedFlavor.remove(index);
+                                        editPrice(position, Flavor[index], "add");
                                     }
+                                } else {
+                                    try {
+                                        checkedFlavor.remove(index);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                        editPrice(position, Flavor[index], "removeOne");
                                 }
                             }
                         });
@@ -194,8 +203,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                         holder.txtQty.setText(qty.toString());
                     }
 
-                    GlobalVar.hsQtycounter.put(holder.txtItemName.getText().toString(),holder.txtQty.getText().toString());//here update the qty counter
-                    updateTotals(position,holder.txtQty.getText().toString()); // here update totals in orderlist class
+                    GlobalVar.hsQtycounter.put(holder.txtItemName.getText().toString(), holder.txtQty.getText().toString());//here update the qty counter
+                    updateTotals(position, holder.txtQty.getText().toString()); // here update totals in orderlist class
                     inter.totalsInterface(getSubTotal(), getTaxTotal(), getDiscountTotal(), getGrandTotal(), c);// here update expandable list totals
                 }
             });
@@ -206,8 +215,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                     Integer qty = (Integer.parseInt(holder.txtQty.getText().toString())) + 1;
                     holder.txtQty.setText(qty.toString());
 
-                    GlobalVar.hsQtycounter.put(holder.txtItemName.getText().toString(),holder.txtQty.getText().toString());//here update the qty counter
-                    updateTotals(position,holder.txtQty.getText().toString()); // here update totals in orderlist class
+                    GlobalVar.hsQtycounter.put(holder.txtItemName.getText().toString(), holder.txtQty.getText().toString());//here update the qty counter
+                    updateTotals(position, holder.txtQty.getText().toString()); // here update totals in orderlist class
                     inter.totalsInterface(getSubTotal(), getTaxTotal(), getDiscountTotal(), getGrandTotal(), c);// here update expandable list totals
                 }
             });
@@ -239,8 +248,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
 
     public void update(int oldposition, ArrayList<OrderList> data) {
         try {
+            String flavor = items.get(oldposition).getFlavors();
             items.remove(oldposition);
             items.add(oldposition, data.get(0));
+            items.get(oldposition).setFlavors(flavor);//bind flavors
             notifyItemChanged(oldposition);
         } catch (Exception ex) {
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -270,12 +281,12 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
     }
 
     public Integer checkItem(int position, ArrayList<OrderList> data) {
-        try{
-        String ItemName = data.get(position).getItem();
-        if (orderlist.containsKey(ItemName)) {
-            int itemoldposition = orderlist.get(ItemName);
-            return itemoldposition;
-        }
+        try {
+            String ItemName = data.get(position).getItem();
+            if (orderlist.containsKey(ItemName)) {
+                int itemoldposition = orderlist.get(ItemName);
+                return itemoldposition;
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -283,22 +294,55 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
         return -1;
     }
 
-    public void updateTotals(int position, String qty){
-        try{
-        OrderList orderListObj = new OrderList("","","");
-        subtotal = Float.parseFloat(items.get(position).getPrice()) * Float.parseFloat(qty);
-        taxtotal = subtotal * Float.parseFloat(items.get(position).getTax());
-        grandtotal = subtotal + taxtotal;
-        orderListObj.setItem(items.get(position).getItem());
-        orderListObj.setQty(qty);
-        orderListObj.setPrice(items.get(position).getPrice());
-        orderListObj.setDiscount(items.get(position).getDiscount());
-        orderListObj.setTax(items.get(position).getTax());
-        orderListObj.setSubtotal(String.valueOf(subtotal));
-        orderListObj.setTaxTotal(String.valueOf(taxtotal));
-        orderListObj.setGrandtotal(String.valueOf(grandtotal));
-        items.set(position,orderListObj);
-        notifyItemChanged(position);
+    public void updateTotals(int position, String qty) {
+        try {
+            subtotal = Float.parseFloat(items.get(position).getPrice()) * Float.parseFloat(qty);
+            taxtotal = subtotal * Float.parseFloat(items.get(position).getTax());
+            grandtotal = subtotal + taxtotal;
+
+            items.get(position).setQty(qty);
+            items.get(position).setSubtotal(String.valueOf(subtotal));
+            items.get(position).setTaxTotal(String.valueOf(taxtotal));
+            items.get(position).setGrandtotal(String.valueOf(grandtotal));
+            notifyItemChanged(position);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void editPrice(int position, String Flavor, String editType) {
+        try {
+            switch (editType) {
+                case "add":
+                    String flavorPrice = itemObj.getFlavorPrice(Flavor);
+                    String itemPrice = items.get(position).getPrice();
+                    String totalPrice = String.valueOf(Float.parseFloat(flavorPrice) + Float.parseFloat(itemPrice));
+                    //items.get(position).setPrice(totalPrice);
+                    //update totals
+                    subtotal = Float.parseFloat(totalPrice) * Float.parseFloat(items.get(position).getQty());
+                    taxtotal = subtotal * Float.parseFloat(items.get(position).getTax());
+                    grandtotal = subtotal + taxtotal;
+                    items.get(position).setSubtotal(String.valueOf(subtotal));
+                    items.get(position).setTaxTotal(String.valueOf(taxtotal));
+                    items.get(position).setGrandtotal(String.valueOf(grandtotal));
+                    inter.totalsInterface(getSubTotal(), getTaxTotal(), getDiscountTotal(), getGrandTotal(), c);// here update expandable list totals
+                    break;
+                case "removeOne":
+                    flavorPrice = itemObj.getFlavorPrice(Flavor);
+                    itemPrice = items.get(position).getPrice();
+                    totalPrice = String.valueOf(Float.parseFloat(itemPrice) - Float.parseFloat(flavorPrice));
+                    //items.get(position).setPrice(totalPrice);
+                    //update totals
+                    subtotal = Float.parseFloat(totalPrice) * Float.parseFloat(items.get(position).getQty());
+                    taxtotal = subtotal * Float.parseFloat(items.get(position).getTax());
+                    grandtotal = subtotal + taxtotal;
+                    items.get(position).setSubtotal(String.valueOf(subtotal));
+                    items.get(position).setTaxTotal(String.valueOf(taxtotal));
+                    items.get(position).setGrandtotal(String.valueOf(grandtotal));
+                    inter.totalsInterface(getSubTotal(), getTaxTotal(), getDiscountTotal(), getGrandTotal(), c);// here update expandable list totals
+                    break;
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();

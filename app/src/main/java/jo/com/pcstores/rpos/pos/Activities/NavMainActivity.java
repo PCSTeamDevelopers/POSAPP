@@ -1,5 +1,6 @@
 package jo.com.pcstores.rpos.pos.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,14 +10,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Adapters.RecItemAdapter;
+import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Fragments.EndShiftFragment;
 import jo.com.pcstores.rpos.pos.Fragments.ItemFragment;
 import jo.com.pcstores.rpos.pos.Fragments.MainFragment;
@@ -26,6 +31,7 @@ import jo.com.pcstores.rpos.pos.Fragments.SalesChartFragment;
 public class NavMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
+    Realm realm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,7 @@ public class NavMainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        realm = Realm.getDefaultInstance();
         this.setTitle("POS");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,11 +92,13 @@ public class NavMainActivity extends AppCompatActivity
 
         if (id == R.id.nav_main) {
             try {
-                MainFragment frag = new MainFragment();
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content , frag);
-                ft.addToBackStack(null);
-                ft.commit();
+                if (checkItems() == true) {
+                    MainFragment frag = new MainFragment();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content, frag);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
             }catch (Exception ex)
             {
                 Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
@@ -171,7 +180,46 @@ public class NavMainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    private boolean checkItems(){
+        try {
+            realm.beginTransaction();
+            RealmResults<Items> results = realm.where(Items.class).findAll();
+            if (results == null || results.size() == 0) {
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(this);
 
+                builder.setTitle("")
+                        .setMessage("There are no items!")
+                        .setPositiveButton("Create items", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    ItemFragment frag = new ItemFragment();
+                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.content, frag);
+                                    ft.addToBackStack(null);
+                                    ft.commit();
+                                } catch (Exception ex) {
+                                    // Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                                    realm.cancelTransaction();
+                                }
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                // }
+                realm.commitTransaction();
+                return false;
+            }
+        }catch (Exception ex){
+            realm.cancelTransaction();
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
 //
 }
 

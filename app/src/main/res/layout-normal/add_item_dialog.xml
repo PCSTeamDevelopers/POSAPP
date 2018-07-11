@@ -119,7 +119,7 @@
         android:layout_toEndOf="@+id/txtPrice"
         android:background="@drawable/border"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:paddingLeft="5dp"
         android:textSize="12sp" />
 

@@ -26,31 +26,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Activities.NavMainActivity;
-import jo.com.pcstores.rpos.pos.Activities.SplashActivity;
 import jo.com.pcstores.rpos.pos.Adapters.ExpandableListAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.OrderListAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.RecCatAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.RecItemAdapter;
-import jo.com.pcstores.rpos.pos.Classes.Invoices;
+import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
+import jo.com.pcstores.rpos.pos.Classes.InvoiceClass;
 import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
 import jo.com.pcstores.rpos.pos.Classes.OrderList;
 import jo.com.pcstores.rpos.pos.Interfaces.ItemsInterface;
-import jo.com.pcstores.rpos.pos.Interfaces.OnActivityResult;
-import jo.com.pcstores.rpos.pos.realm.RealmController;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,28 +65,25 @@ public class MainFragment extends Fragment implements ItemsInterface {
     HashMap<String, List<String>> listDataChild;
     Realm realm;
     ItemsClass itemObj = new ItemsClass(getContext());
+    InvoiceClass invoiceObj = new InvoiceClass();
     ArrayList<OrderList> items;
     Context c;
-
+    String invoiceNo = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View x = inflater.inflate(R.layout.fragment_main, container, false);
 
         realm = Realm.getDefaultInstance();
-
+        // Inflate the layout for this fragment
+        View x = inflater.inflate(R.layout.fragment_main, container, false);
         getActivity().setTitle("Main");
 
         ////Edit ActionBar
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        //read cashier name from shared Preference
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String cashierName = sharedPreferences.getString("cashier name","");
         //get the invoiceno
-        String invoiceNo = itemObj.getMaxInvoiceNo();
+        invoiceNo = invoiceObj.getMaxInvoiceNo();
         actionBar.setTitle("Invoice# : " + invoiceNo);
-        actionBar.setSubtitle("Cashier : " + cashierName);
+        actionBar.setSubtitle("Cashier : " + GlobalVar.CashierName);
        // actionBar.setLogo(getResources().getDrawable(R.drawable.logo));
 
 
@@ -112,8 +101,8 @@ public class MainFragment extends Fragment implements ItemsInterface {
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
         expList.setAdapter(listAdapter);
         expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
-        //expList.expandGroup(0);
-        expList.collapseGroup(0);
+        expList.expandGroup(0);
+        //expList.collapseGroup(0);
 
         //Recycler CATEGORIES
         recCategories.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
@@ -124,7 +113,15 @@ public class MainFragment extends Fragment implements ItemsInterface {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("invoiceno",invoiceNo);
+                bundle.putString("subtotal",adapter.getSubTotal());
+                bundle.putString("taxtotal",adapter.getTaxTotal());
+                bundle.putString("discounttotal",adapter.getDiscountTotal());
+                bundle.putString("grandtotal",adapter.getGrandTotal());
+
                 PayFragment frag = new PayFragment();
+                frag.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content, frag);
                 ft.addToBackStack(null);
@@ -273,6 +270,7 @@ public class MainFragment extends Fragment implements ItemsInterface {
             listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
             expList.setAdapter(listAdapter);
             expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
+            expList.expandGroup(0);
         } catch (Exception ex) {
             Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
