@@ -28,7 +28,10 @@
     <string name="DirectedMeals">اخراج الوجبات</string>
     <string name="Reservations">الحجوزات</string>
     <string name="Clear">مسح</string>
+    <string name="delete">حذفز</string>
     <string name="cancel">الغاء</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
     <string name="Pay">إغلاق فاتورة</string>
     <string name="Prepare">تجهيز</string>
     <string name="Flavors">النكهات</string>
@@ -83,6 +86,8 @@
     <string name="addFlavor">إضافة نكهة</string>
     <string name="AddCategory">إضافة مجموعة</string>
     <string name="AddItem">إضافة مادة</string>
+    <string name="editCategory">تعديل مجموعة</string>
+    <string name="editItem">تعديل مادة</string>
     <string name="ItemCode">رمز المادة</string>
     <string name="ItemName">اسم المادة</string>
     <string name="Category">المجموعة</string>
@@ -92,4 +97,15 @@
     <string name="UnderCategory">تحت مجموعة</string>
     <string name="CategoryCode">رمز المجموعة</string>
     <string name="FlavorName">اسم النكهة</string>
+    <string name="SelectOption">اختر</string>
+    <string name="selectFlavors">اختر النكهات</string>
+    <string name="invalidUsernameError">اسم المستخدم غير صحيح!</string>
+    <string name="invalidPwError">كلمة المرور غير صحيحة!</string>
+    <string name="regEnterNamePw">الرجاء ادخال الاسم و كلمة المرور!</string>
+    <string name="userSuccess">تم إضافة اسم المستخدم بنجاح</string>
+    <string name="deleteQuestion">هل انت متأكد من حذف المادة؟</string>
+    <string name="message">Message</string>
+    <string name="noItems">لا يمكنك إغلاق فاتورة صفرية!</string>
+    <string name="noCategories">لا تستطيع تعريف مواد قبل ان تعرف مجموعات!</string>
+
 </resources>

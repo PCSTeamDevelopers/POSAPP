@@ -122,9 +122,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                         }
                         final AlertDialog.Builder builder = new AlertDialog.Builder(c);
                         builder.setIcon(R.drawable.select);
-                        builder.setTitle("Select Flavors");
+                        builder.setTitle(R.string.selectFlavors);
                         builder.setPositiveButton(android.R.string.ok, null);
-                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Integer checkedItem = ((AlertDialog) dialogInterface).getListView().getCheckedItemCount();
@@ -149,7 +149,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.data
                                     Toast.makeText(c, R.string.NoFlavorsSelected, Toast.LENGTH_LONG).show();
                                 }
                             }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();

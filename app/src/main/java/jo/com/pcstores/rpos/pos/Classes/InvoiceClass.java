@@ -4,8 +4,10 @@ import android.content.Context;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class InvoiceClass {
     Realm realm;
@@ -14,22 +16,15 @@ public class InvoiceClass {
         realm = Realm.getDefaultInstance();
     }
 
-    public String getMaxInvoiceNo(){
-        String invoiceNo = "";
+    public Integer getMaxInvoiceNo(){
+        Integer invoiceNo = 0;
         try {
-            realm.beginTransaction();
-            Invoices invoices = realm.where(Invoices.class).equalTo("status","Pending").findFirst();
-            if (invoices == null){
-                Invoices obj = realm.where(Invoices.class).findFirst();
-                if (obj == null){
-                    invoiceNo = "1";
-                    insertInvoice(invoiceNo);
-                }else {
-                    invoiceNo = String.valueOf(Integer.parseInt(obj.getInvoiceno()) + 1);
-                    insertInvoice(invoiceNo);
-                }
-            }else{
-                invoiceNo= invoices.getInvoiceno();
+            //realm.beginTransaction();
+            RealmResults<Invoices> invoices = realm.where(Invoices.class).findAll();
+            if (invoices == null || invoices.size() == 0){
+                invoiceNo = 1;
+            }else {
+                invoiceNo = (realm.where(Invoices.class).max("invoiceno")).intValue() + 1;
             }
             realm.commitTransaction();
             return invoiceNo;
@@ -40,14 +35,20 @@ public class InvoiceClass {
         return invoiceNo;
     }
 
-    public void insertInvoice(String invoiceno){
+    public void insertInvoice(Integer invoiceNo, String subTotal, String taxTotal, String discountTotal, String grandTotal){
         try{
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-            Invoices obj = new Invoices();
-            obj.setInvoiceno(invoiceno);
-            obj.setActualtime(timeStamp);
-            obj.setStatus("Pending");
-            realm.copyToRealmOrUpdate(obj);
+            String actualTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            realm.beginTransaction();
+            Invoices invoiceObj = new Invoices();
+            invoiceObj.setInvoiceno(invoiceNo);
+            invoiceObj.setActualtime(actualTime);
+            invoiceObj.setEmployee(GlobalVar.CashierName);
+            invoiceObj.setTotal(subTotal);
+            invoiceObj.setTaxtotal(taxTotal);
+            invoiceObj.setDiscounttotal(discountTotal);
+            invoiceObj.setNettotal(grandTotal);
+            realm.copyToRealmOrUpdate(invoiceObj);
+            realm.commitTransaction();
         }catch (Exception e){
             e.printStackTrace();
         }

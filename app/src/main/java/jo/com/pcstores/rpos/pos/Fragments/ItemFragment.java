@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -92,14 +93,20 @@ public class ItemFragment extends Fragment {
 
                     spCategory.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, itemObj.getMainCategories()));
 
-                    alertDialogBuilder.setTitle("Add Category");
+                    alertDialogBuilder.setTitle(R.string.AddCategory);
                     alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                     alertDialogBuilder
                             .setPositiveButton("OK",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            itemObj.addCategory(etCategoryID.getText().toString(), etCategoryName.getText().toString(), spCategory.getSelectedItem().toString());
-                                            prepareListData();
+                                            try {
+                                                itemObj.addCategory(etCategoryID.getText().toString(), etCategoryName.getText().toString(), spCategory.getSelectedItem().toString());
+                                                //to resfresh fragment .....
+                                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                ft.detach(ItemFragment.this).attach(ItemFragment.this).commit();
+                                            } catch (Exception ex) {
+                                                ex.printStackTrace();
+                                            }
                                         }
                                     })
                             .setNegativeButton("Cancel",
@@ -120,40 +127,50 @@ public class ItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    LayoutInflater li = LayoutInflater.from(getActivity());
-                    View myView = li.inflate(R.layout.add_item_dialog, null);
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                    alertDialogBuilder.setView(myView);
+                    if (itemObj.getMainCategories().size() < 2) {//size is set to 2 because by default its size is 1 ==> item (none)
+                        Toast.makeText(getActivity(), R.string.noCategories, Toast.LENGTH_SHORT).show();
+                    } else {
+                        LayoutInflater li = LayoutInflater.from(getActivity());
+                        View myView = li.inflate(R.layout.add_item_dialog, null);
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                        alertDialogBuilder.setView(myView);
 
-                    final EditText etItemID = myView.findViewById(R.id.etItemID);
-                    final EditText etItemName = myView.findViewById(R.id.etItemName);
-                    final EditText etPrice = myView.findViewById(R.id.etPrice);
-                    final Spinner spCategory = myView.findViewById(R.id.spCategory);
-                    final Spinner spTax = myView.findViewById(R.id.spTax);
+                        final EditText etItemID = myView.findViewById(R.id.etItemID);
+                        final EditText etItemName = myView.findViewById(R.id.etItemName);
+                        final EditText etPrice = myView.findViewById(R.id.etPrice);
+                        final Spinner spCategory = myView.findViewById(R.id.spCategory);
+                        final Spinner spTax = myView.findViewById(R.id.spTax);
 
-                    spCategory.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, itemObj.getAllCategories()));
+                        spCategory.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, itemObj.getAllCategories()));
 
-                    String[] tax = {"0", "0.04", "0.16"};
-                    spTax.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, tax));
+                        String[] tax = getResources().getStringArray(R.array.taxArray);
+                        spTax.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, tax));
 
-                    alertDialogBuilder.setTitle("Add Item");
-                    alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
-                    alertDialogBuilder
-                            .setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            itemObj.addItem(etItemID.getText().toString(), etItemName.getText().toString(), etPrice.getText().toString(), spCategory.getSelectedItem().toString(), spTax.getSelectedItem().toString());
-                                            prepareListData();
-                                        }
-                                    })
-                            .setNegativeButton("Cancel",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                        alertDialogBuilder.setTitle(R.string.AddItem);
+                        alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
+                        alertDialogBuilder
+                                .setPositiveButton(android.R.string.ok,
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                try {
+                                                    itemObj.addItem(etItemID.getText().toString(), etItemName.getText().toString(), etPrice.getText().toString(), spCategory.getSelectedItem().toString(), spTax.getSelectedItem().toString());
+                                                    //to resfresh fragment .....
+                                                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                                    ft.detach(ItemFragment.this).attach(ItemFragment.this).commit();
+                                                } catch (Exception ex) {
+                                                    ex.printStackTrace();
+                                                }
+                                            }
+                                        })
+                                .setNegativeButton(android.R.string.cancel,
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
                 } catch (Exception ex) {
                     Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -173,10 +190,10 @@ public class ItemFragment extends Fragment {
                     final EditText etFlavorName = myView.findViewById(R.id.etFlavorName);
                     final EditText etPrice = myView.findViewById(R.id.etPrice);
 
-                    alertDialogBuilder.setTitle("Add Flavor");
+                    alertDialogBuilder.setTitle(R.string.addFlavor);
                     alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                     alertDialogBuilder
-                            .setPositiveButton("OK",
+                            .setPositiveButton(android.R.string.ok,
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             try {
@@ -191,7 +208,7 @@ public class ItemFragment extends Fragment {
                                             }
                                         }
                                     })
-                            .setNegativeButton("Cancel",
+                            .setNegativeButton(android.R.string.cancel,
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             dialog.cancel();
@@ -203,7 +220,7 @@ public class ItemFragment extends Fragment {
                             String[] Flavor = new String[allFlavors.size()];
                             Flavor = allFlavors.toArray(new String[allFlavors.size()]);
                             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setTitle("Flavors");
+                            builder.setTitle(R.string.Flavors);
                             builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {

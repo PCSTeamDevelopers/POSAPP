@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import jo.com.pcstores.rpos.R;
+import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
 
 public class SplashActivity extends AppCompatActivity {
     ImageView logo;
@@ -62,6 +63,9 @@ public class SplashActivity extends AppCompatActivity {
                         public void run() {
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
                             boolean keepMeLogged = sharedPreferences.getBoolean("keep me logged",false);
+                            //Read Cashier Name fro shared preferences
+                            String cashierName = sharedPreferences.getString("cashier name","");
+                            GlobalVar.CashierName = cashierName;
                             if (keepMeLogged){
                                 Intent i = new Intent(SplashActivity.this,NavMainActivity.class);
                                 startActivity(i);

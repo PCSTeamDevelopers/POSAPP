@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -14,8 +15,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import io.realm.Realm;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Activities.NavMainActivity;
+import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
+import jo.com.pcstores.rpos.pos.Classes.InvoiceClass;
+import jo.com.pcstores.rpos.pos.Classes.Invoices;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,12 +31,13 @@ import jo.com.pcstores.rpos.pos.Activities.NavMainActivity;
 public class PayFragment extends Fragment {
 
     //DECLARE
+    Realm realm;
     Button btnCancel;
     Button btnDone;
     Button btnPrint;
 
     String Value;
-    String invoiceNo;
+    Integer invoiceNo;
 
     TextView txtamount;
     TextView txtbalance;
@@ -66,6 +75,9 @@ public class PayFragment extends Fragment {
         // Inflate the layout for this fragment
         View x = inflater.inflate(R.layout.fragment_pay, container, false);
 
+        realm = Realm.getDefaultInstance();
+        final InvoiceClass invoiceObj = new InvoiceClass();
+
          //INITIALIZE
         btnCancel = x.findViewById(R.id.btnCancel);
         btnDone = x.findViewById(R.id.btnDone);
@@ -101,7 +113,7 @@ public class PayFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            invoiceNo = bundle.getString("invoiceno");
+            invoiceNo = bundle.getInt("invoiceno");
             //set totals texts
             txtbalance.setText(bundle.getString("grandtotal"));
             txtsubTotal.setText(bundle.getString("subtotal"));
@@ -258,8 +270,16 @@ public class PayFragment extends Fragment {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //do done code
-                //refresh fragment and back to it
+                //insert invoice hidder
+                try{
+                    invoiceObj.insertInvoice(invoiceNo,
+                            txtsubTotal.getText().toString(),
+                            txttaxTotal.getText().toString(),
+                            txtdiscountTotal.getText().toString(),
+                            txtgrandTotal.getText().toString());
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="imageOptions">
+        <item>Take Photo</item>
+        <item>Choose From Gallery</item>
+        <item>Delete Photo</item>
+        <item>Cancel</item>
+    </string-array>
+
+    <string-array name="taxArray">
+        <item>0</item>
+        <item>0.04</item>
+        <item>0.16</item>
+    </string-array>
+</resources>

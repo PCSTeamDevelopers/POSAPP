@@ -9,18 +9,35 @@ public class Invoices extends RealmObject {
 
     @PrimaryKey
     @Required
-    private String invoiceno;
+    private Integer invoiceno;
     private String actualtime;
     private String employee;
     private String total;
+    private String taxtotal;
+    private String discounttotal;
     private String nettotal;
-    private String status;
 
-    public String getInvoiceno() {
+    public String getTaxtotal() {
+        return taxtotal;
+    }
+
+    public void setTaxtotal(String taxtotal) {
+        this.taxtotal = taxtotal;
+    }
+
+    public String getDiscounttotal() {
+        return discounttotal;
+    }
+
+    public void setDiscounttotal(String discounttotal) {
+        this.discounttotal = discounttotal;
+    }
+
+    public Integer getInvoiceno() {
         return invoiceno;
     }
 
-    public void setInvoiceno(String invoiceno) {
+    public void setInvoiceno(Integer invoiceno) {
         this.invoiceno = invoiceno;
     }
 
@@ -56,11 +73,4 @@ public class Invoices extends RealmObject {
         this.nettotal = nettotal;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

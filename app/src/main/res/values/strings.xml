@@ -27,7 +27,10 @@
     <string name="DirectedMeals">Output Meals</string>
     <string name="Reservations">Reservations</string>
     <string name="Clear">Clear</string>
+    <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="Pay">Pay</string>
     <string name="Prepare">Prepare</string>
     <string name="Flavors">Flavors</string>
@@ -35,7 +38,7 @@
     <string name="NoFlavorsSelected">No Flavors Selected!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="TextView">TextView</string>
-    <string name="Total">Total</string>
+    <string name="Total">TOTAL</string>
     <string name="Item">Item</string>
     <string name="Price">Price</string>
     <string name="Qty">Qty</string>
@@ -83,6 +86,8 @@
     <string name="addFlavor">add flavor</string>
     <string name="AddCategory">Add Category</string>
     <string name="AddItem">Add Item</string>
+    <string name="editCategory">Edit Category</string>
+    <string name="editItem">Edit Item</string>
     <string name="ItemCode">Item Code</string>
     <string name="ItemName">Item Name</string>
     <string name="Category">Category</string>
@@ -92,4 +97,15 @@
     <string name="UnderCategory">Under Category</string>
     <string name="CategoryCode">Category Code</string>
     <string name="FlavorName">Flavor Name</string>
+    <string name="SelectOption">Select Option</string>
+    <string name="selectFlavors">Select Flavors</string>
+    <string name="invalidUsernameError">User name is Invalid!</string>
+    <string name="invalidPwError">Password is Invalid!</string>
+    <string name="regEnterNamePw">Please Enter Name and Password!</string>
+    <string name="userSuccess">User Successfully added</string>
+    <string name="deleteQuestion">Are you sure you want to delete item?</string>
+    <string name="noItems">You cant close empty invoice!</string>
+    <string name="noCategories">You cant make items without creating categories!</string>
+    <string name="message">Message</string>
+
 </resources>

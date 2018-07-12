@@ -124,37 +124,7 @@ public class RecieptFragment extends Fragment {
     private ArrayList<Invoices> fillrecycler(CharSequence fromdate, CharSequence todate){
 
         ArrayList<Invoices> m=new ArrayList<>();
-        Invoices p1=new Invoices();
-        p1.setInvoiceno("1001.000001");
-        p1.setActualtime("29/03/2018 10:00:01 am");
-        p1.setEmployee("Employee1");
-        p1.setTotal("0.00 JD");
-        p1.setNettotal("0.00 JD");
-        m.add(p1);
 
-        p1=new Invoices();
-        p1.setInvoiceno("1001.000002");
-        p1.setActualtime("29/03/2018 10:00:01 am");
-        p1.setEmployee("Employee2");
-        p1.setTotal("0.00 JD");
-        p1.setNettotal("0.00 JD");
-        m.add(p1);
-
-        p1=new Invoices();
-        p1.setInvoiceno("1001.000003");
-        p1.setActualtime("29/03/2018 10:00:01 am");
-        p1.setEmployee("Employee3");
-        p1.setTotal("0.00 JD");
-        p1.setNettotal("0.00 JD");
-        m.add(p1);
-
-        p1=new Invoices();
-        p1.setInvoiceno("1001.000004");
-        p1.setActualtime("29/03/2018 10:00:01 am");
-        p1.setEmployee("Employee4");
-        p1.setTotal("0.00 JD");
-        p1.setNettotal("0.00 JD");
-        m.add(p1);
         return m;
 
     }

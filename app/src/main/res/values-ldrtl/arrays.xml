@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="imageOptions">
+        <item>التقاط صورة</item>
+        <item>اختيار من المعرض</item>
+        <item>حذف الصورة</item>
+        <item>إلغاء</item>
+    </string-array>
+
+</resources>

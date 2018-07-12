@@ -21,17 +21,17 @@
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border">
-
-        <Spinner
-            android:id="@+id/spCategory"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border">
+
+            <Spinner
+                android:id="@+id/spCategory"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+        </RelativeLayout>
 
     <TextView
         android:id="@+id/txtcode"

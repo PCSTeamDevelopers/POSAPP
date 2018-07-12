@@ -39,6 +39,7 @@ import jo.com.pcstores.rpos.pos.Adapters.RecCatAdapter;
 import jo.com.pcstores.rpos.pos.Adapters.RecItemAdapter;
 import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
 import jo.com.pcstores.rpos.pos.Classes.InvoiceClass;
+import jo.com.pcstores.rpos.pos.Classes.Invoices;
 import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
 import jo.com.pcstores.rpos.pos.Classes.OrderList;
@@ -68,7 +69,7 @@ public class MainFragment extends Fragment implements ItemsInterface {
     InvoiceClass invoiceObj = new InvoiceClass();
     ArrayList<OrderList> items;
     Context c;
-    String invoiceNo = "";
+    Integer invoiceNo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -101,8 +102,8 @@ public class MainFragment extends Fragment implements ItemsInterface {
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
         expList.setAdapter(listAdapter);
         expList.setGroupIndicator(getResources().getDrawable( R.drawable.custom_expandable));
-        expList.expandGroup(0);
-        //expList.collapseGroup(0);
+        //expList.expandGroup(0);
+        expList.collapseGroup(0);
 
         //Recycler CATEGORIES
         recCategories.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
@@ -113,19 +114,40 @@ public class MainFragment extends Fragment implements ItemsInterface {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("invoiceno",invoiceNo);
-                bundle.putString("subtotal",adapter.getSubTotal());
-                bundle.putString("taxtotal",adapter.getTaxTotal());
-                bundle.putString("discounttotal",adapter.getDiscountTotal());
-                bundle.putString("grandtotal",adapter.getGrandTotal());
+                try {
+                    if (adapter == null || Float.parseFloat(adapter.getSubTotal()) == 0) {
+                        AlertDialog.Builder builder;
+                        builder = new AlertDialog.Builder(getActivity());
 
-                PayFragment frag = new PayFragment();
-                frag.setArguments(bundle);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content, frag);
-                ft.addToBackStack(null);
-                ft.commit();
+                        builder.setTitle(R.string.message)
+                                .setMessage(R.string.noItems)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+
+                                    ;
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("invoiceno", invoiceNo);
+                        bundle.putString("subtotal", adapter.getSubTotal());
+                        bundle.putString("taxtotal", adapter.getTaxTotal());
+                        bundle.putString("discounttotal", adapter.getDiscountTotal());
+                        bundle.putString("grandtotal", adapter.getGrandTotal());
+
+                        PayFragment frag = new PayFragment();
+                        frag.setArguments(bundle);
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.content, frag);
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 

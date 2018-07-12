@@ -49,7 +49,9 @@ public class ItemsClass {
     }
 
     public List<String> getMainCategories(){
-        final List<String> categories = new ArrayList<String>();
+        List<String> categories = new ArrayList<String>();
+        try{
+        categories = new ArrayList<String>();
         String item ;
         realm.beginTransaction();
         RealmResults<Items> data = realm.where(Items.class).equalTo("father","").findAll();
@@ -59,6 +61,10 @@ public class ItemsClass {
             categories.add(item);
         }
         realm.commitTransaction();
+            return categories;
+    }catch (Exception e){
+        e.printStackTrace();
+    }
         return categories;
     }
 

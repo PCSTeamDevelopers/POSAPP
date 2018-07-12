@@ -60,14 +60,14 @@ public class RecCatAdapter extends RecyclerView.Adapter<RecCatAdapter.viewitem> 
 
     @Override
     public void onBindViewHolder(final viewitem holder, final int position) {
-        holder.txtCatName.setText(items.get(position).getItemName());
+        holder.txtCatName.setText(items.get(position).getItemName().toUpperCase());
 
         Log.d("txtCatName", "id : " + holder.txtCatName.getText());
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    inter.categoryInterface(holder.txtCatName.getText().toString(), c);
+                    inter.categoryInterface(holder.txtCatName.getText().toString().toLowerCase(), c);
                 } catch (Exception ex) {
                     Toast.makeText(c, ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }

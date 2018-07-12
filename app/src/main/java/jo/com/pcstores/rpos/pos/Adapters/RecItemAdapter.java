@@ -1,53 +1,36 @@
 package jo.com.pcstores.rpos.pos.Adapters;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Parcelable;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
 
-import io.realm.Realm;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
 import jo.com.pcstores.rpos.pos.Classes.Items;
 import jo.com.pcstores.rpos.pos.Classes.ItemsClass;
 import jo.com.pcstores.rpos.pos.Classes.OrderList;
-import jo.com.pcstores.rpos.pos.Fragments.MainFragment;
+import jo.com.pcstores.rpos.pos.Interfaces.AsyncResponse;
 import jo.com.pcstores.rpos.pos.Interfaces.ItemsInterface;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import static android.app.Activity.RESULT_OK;
 
 import jo.com.pcstores.rpos.pos.Interfaces.OnActivityResult;
 import android.support.v7.app.AlertDialog.Builder;
-
-import static android.support.v4.graphics.TypefaceCompatUtil.getTempFile;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Dev6 on 3/12/2018.
@@ -68,7 +51,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
     private static final int SELECT_PICTURE = 1;
     ItemsClass itemObj = new ItemsClass(c);
     String itemName;
-
+    viewitem imgHolder;
     public RecItemAdapter(Context c, ArrayList<Items> item, Fragment frag) {
         this.frag = frag;
         inter = (ItemsInterface) frag;
@@ -110,7 +93,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
     @Override
     public void onBindViewHolder(final viewitem holder, final int position) {
         try {
-            holder.txtItemName.setText(items.get(position).getItemName());
+            holder.txtItemName.setText(items.get(position).getItemName().toUpperCase());
             itemName = holder.txtItemName.getText().toString();
             holder.txtItemPrice.setText(items.get(position).getItemPrice());
             Bitmap bitmap = itemObj.getImage(items.get(position).getItemImage(), c);
@@ -122,24 +105,25 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                 @Override
                 public void onClick(View view) {
                     try {
-                        final CharSequence[] options = {"Take Photo", "Choose From Gallery","Delete Photo" ,"Cancel"};
+                        final CharSequence[] options =  c.getResources().getStringArray(R.array.imageOptions);//get option array from (resources->values->arrays)
                         Builder builder = new Builder(c);
-                        builder.setTitle("Select Option");
+                        builder.setTitle(R.string.SelectOption);
                         builder.setIcon(c.getResources().getDrawable(R.drawable.ic_menu_camera));
                         builder.setItems(options, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int item) {
-                                if (options[item].equals("Take Photo")) {
+                                try{
+                                if (options[item].equals(options[0])) {//option: take photo
                                     dialog.dismiss();
+                                    imgHolder = holder;//let imgHolder carry holder value so image can be replaced
                                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                     ((Fragment) frag).startActivityForResult(intent, CAMERA_REQUEST);
-                                    holder.img.setImageBitmap(itemObj.getImage(items.get(position).getItemImage(),c));
-                                } else if (options[item].equals("Choose From Gallery")) {
+                                } else if (options[item].equals(options[1])) {//option: Choose From Gallery
                                     dialog.dismiss();
+                                    imgHolder = holder;//let imgHolder carry holder value so image can be replaced
                                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                                     ((Fragment) frag).startActivityForResult(pickPhoto, SELECT_PICTURE);
-                                    holder.img.setImageBitmap(itemObj.getImage(items.get(position).getItemImage(),c));
-                                } else if (options[item].equals("Delete Photo")) {
+                                } else if (options[item].equals(options[2])) {//option: Delete Photo
                                     try{
                                     byte[] emptyImage = itemObj.emptyArray();
                                     itemObj.saveImage(itemObj.getItemId(holder.txtItemName.getText().toString()),itemObj.getImage(emptyImage,c));//save item image as color (without image)
@@ -148,9 +132,11 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                            }  else if (options[item].equals("Cancel")) {
+                            }  else if (options[item].equals(options[3])) {//option: Cancel
                                 dialog.dismiss();}
-                        }});
+                        } catch (Exception e) {
+                                e.printStackTrace();
+                            }}});
                         builder.show();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -161,7 +147,7 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
                 @Override
                 public void onClick(View v) {
                     try {
-                        String itemName = holder.txtItemName.getText().toString();
+                        String itemName = holder.txtItemName.getText().toString().toLowerCase();
                         String itemPrice = holder.txtItemPrice.getText().toString();
 
                         String qty = "1";
@@ -211,22 +197,18 @@ public class RecItemAdapter extends RecyclerView.Adapter<jo.com.pcstores.rpos.po
             if (requestCode == SELECT_PICTURE) {
                 if (resultCode == RESULT_OK) {
                     if (requestCode == SELECT_PICTURE) {
-                        Uri selectedImageUri = data.getData();
-                        //imgItem.setImageURI(selectedImageUri);
-
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), selectedImageUri);
-                        itemObj.saveImage(itemObj.getItemId(itemName), bitmap);
+                        photo = MediaStore.Images.Media.getBitmap(c.getContentResolver(),  data.getData());
+                        itemObj.saveImage(itemObj.getItemId(imgHolder.txtItemName.getText().toString()), photo);
+                        imgHolder.img.setImageBitmap(photo);
                     }
                 }
             } else if (requestCode == CAMERA_REQUEST) {
                 photo = (Bitmap) data.getExtras().get("data");
-                //imgItem.setImageBitmap(photo);
-
-                itemObj.saveImage(itemObj.getItemId(itemName), photo);
+                itemObj.saveImage(itemObj.getItemId(imgHolder.txtItemName.getText().toString()), photo);
+                imgHolder.img.setImageBitmap(photo);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

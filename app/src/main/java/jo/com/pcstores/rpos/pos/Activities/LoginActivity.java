@@ -49,6 +49,7 @@ import io.realm.Realm;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
 import jo.com.pcstores.rpos.pos.Classes.User;
+import jo.com.pcstores.rpos.pos.Fragments.MainFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -285,11 +286,11 @@ public class LoginActivity extends AppCompatActivity {
             realm.beginTransaction();
             User result = realm.where(User.class).equalTo("name", etName.getText().toString().toLowerCase()).findFirst();
             if ((result == null)){
-                Toast.makeText(getApplicationContext(), "User name is Invalid!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.invalidUsernameError, Toast.LENGTH_SHORT).show();
                 realm.commitTransaction();
             }else {
                 if (!(result.getPass().toString().matches(etPw.getText().toString().toLowerCase()))){
-                    Toast.makeText(getApplicationContext(), "Password is Invalid!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),  R.string.invalidPwError, Toast.LENGTH_SHORT).show();
                     realm.commitTransaction();
                 }else {
                     realm.commitTransaction();
@@ -321,14 +322,14 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etName = myView.findViewById(R.id.etName);
         final EditText etPw = myView.findViewById(R.id.etPw);
 
-            alertDialogBuilder.setTitle("Registration");
+            alertDialogBuilder.setTitle( R.string.Reservations);
             alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.registration));
         alertDialogBuilder
-                .setPositiveButton("OK",
+                .setPositiveButton( android.R.string.ok,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 if (etName.getText().toString().matches("") || etPw.getText().toString().matches("")){
-                                    Toast.makeText(getApplicationContext(), "Please Enter Name and Password", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.regEnterNamePw, Toast.LENGTH_SHORT).show();
                                 }else {
                                     //insert data to realm
                                     realm.beginTransaction();
@@ -344,7 +345,7 @@ public class LoginActivity extends AppCompatActivity {
                                     pen.putString("cashier name", etName.getText().toString());
                                     pen.commit();
                                     GlobalVar.CashierName = etName.getText().toString();
-                                    Toast.makeText(getApplicationContext(), "User Successfully added", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.userSuccess, Toast.LENGTH_SHORT).show();
 
                                     //show the main activity
                                     Intent i = new Intent(LoginActivity.this,NavMainActivity.class);
@@ -352,7 +353,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         })
-                .setNegativeButton("Cancel",
+                .setNegativeButton(android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
