@@ -18,7 +18,8 @@
         android:cursorVisible="false"
         android:ems="10"
         android:inputType="text"
-        android:paddingLeft="40dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
@@ -36,17 +37,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:labelFor="@id/etName"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imgGif"
         android:layout_width="278dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-
         android:layout_marginBottom="50dp"
-        android:layout_marginLeft="250dp"
-        android:contentDescription="@string/todo"
+        android:layout_marginStart="250dp"
+        android:contentDescription="@string/gif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintHorizontal_bias="1.0"
@@ -76,7 +77,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/guideline10"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/etName"
+        android:labelFor="@id/etPw"/>
 
     <EditText
         android:id="@+id/etPw"
@@ -87,11 +89,13 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="textPassword"
-        android:paddingLeft="40dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/guideline10"
-        app:layout_constraintTop_toBottomOf="@+id/tvPw" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPw"
+        />
 
     <Button
         android:id="@+id/btnLogin"
@@ -147,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/usernameinpImg"
         app:layout_constraintBottom_toTopOf="@+id/tvPw"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:srcCompat="@drawable/user" />
@@ -159,7 +163,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/userpassinpImg"
         app:layout_constraintBottom_toBottomOf="@+id/etPw"
         app:layout_constraintStart_toStartOf="@+id/etPw"
         app:layout_constraintTop_toTopOf="@+id/etPw"

@@ -20,48 +20,25 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import jo.com.pcstores.rpos.R;
 import jo.com.pcstores.rpos.pos.Classes.GlobalVar;
 import jo.com.pcstores.rpos.pos.Classes.User;
-import jo.com.pcstores.rpos.pos.Fragments.MainFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView tvPw;
-    TextView tvName;
-    Spinner spName;
-    EditText etPw;
-    EditText etName;
-    ImageView imgName;
-    ImageView imgPw;
-    Button btnLogin;
-    Button btnRegistration;
+    TextView tvPw, tvName;
+   // Spinner spName;
+    EditText etPw, etName;
+    ImageView imgName,imgPw;
+    Button btnLogin, btnRegistration;
     Switch swKeepLogged;
     Realm realm;
     SharedPreferences sharedPreferences;
@@ -73,14 +50,10 @@ public class LoginActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         //Control orientation depending on size
         int screenSize = getResources().getConfiguration().screenLayout &Configuration.SCREENLAYOUT_SIZE_MASK;
-        switch(screenSize) {
-            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
-//            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//                break;
-            default:
+        if(screenSize==Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        else{
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -90,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //TO FORCE KEYBOARD HIDDEN ON START
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        etName.clearFocus();
+        etPw.clearFocus();
 
         //INITIALIZE
         tvPw = findViewById(R.id.tvPw);
@@ -102,11 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         btnRegistration = findViewById(R.id.btnRegistration);
         swKeepLogged = findViewById(R.id.swKeepLogged);
 
-        etName.clearFocus();
-        etPw.clearFocus();
+
 
         //SET ANIMATION FOR IMAGES
-
+        //onTouch pass edittext
         etPw.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -115,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //onTouch name edittext
         etName.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -123,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         //Clear images animation when there is no focus
         etPw.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -135,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
         etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -143,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
         //hide keyboard when press the key done in keyboard
         etPw.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -161,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         //fill data to spinner (users name)
         //fillData(Config.url+"readAllUsersFromDatabase");
     }
+/*
 
     public void fillData(String url) {
         try
@@ -188,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                         l.add (u);
                     }
                     // }
-                    spName.setAdapter(new ArrayAdapter<User>(LoginActivity.this,R.layout.custom_spinner_login,R.id.Name, l));
+                  //  spName.setAdapter(new ArrayAdapter<User>(LoginActivity.this,R.layout.custom_spinner_login,R.id.Name, l));
                 }catch (JSONException e){e.printStackTrace();}
             }
         }, new Response.ErrorListener() {
@@ -207,8 +187,9 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+*/
 
-    public void login2(View v){
+ /*   public void login2(View v){
         //LOGIN
          try {
 //             RequestQueue queue = Volley.newRequestQueue(this);
@@ -280,7 +261,9 @@ public class LoginActivity extends AppCompatActivity {
              Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
           }
     }
+*/
 
+    //onClick on login button
     public void login(View v){
         try{
             realm.beginTransaction();
@@ -312,6 +295,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //onClick on regestration Btn
     public void registration(View view) {
 
         try{
@@ -339,6 +323,7 @@ public class LoginActivity extends AppCompatActivity {
                                     data.setPass(etPw.getText().toString().toLowerCase());
                                     realm.copyToRealmOrUpdate(data);
                                     realm.commitTransaction();
+
                                     //add username to shared preference
                                     sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
                                     SharedPreferences.Editor pen = sharedPreferences.edit();

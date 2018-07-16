@@ -7,12 +7,12 @@
     tools:context="jo.com.pcstores.rpos.pos.Activities.SplashActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Copyrights"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/pcstores"
+        android:text="@string/pcstoresCopyrights"
         android:textSize="10sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="130dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/startImgDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/startimgpcstores"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"

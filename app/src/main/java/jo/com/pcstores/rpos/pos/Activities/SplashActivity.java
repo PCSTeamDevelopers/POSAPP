@@ -28,16 +28,13 @@ public class SplashActivity extends AppCompatActivity {
 
        //Control orientation depending on size
         int screenSize = getResources().getConfiguration().screenLayout &Configuration.SCREENLAYOUT_SIZE_MASK;
-        switch(screenSize) {
-            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                break;
-//            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-//                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-//                break;
-            default:
+        if (screenSize==Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        else{
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+
        //HIDE ACTIONBAR
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

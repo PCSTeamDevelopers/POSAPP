@@ -15,7 +15,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="text"
-        android:paddingLeft="34dp"
+        android:paddingStart="34dp"
+        android:paddingEnd="0dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -28,6 +29,7 @@
         android:text="@string/UserName"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/large"
+        android:labelFor="@id/etName"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -35,10 +37,10 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imgGif"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="367dp"
+        android:layout_height="202dp"
         android:background="@color/cardview_light_background"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/gif"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,6 +59,7 @@
         android:text="@string/Password"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/large"
+        android:labelFor="@id/etPw"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -70,7 +73,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="textPassword"
-        android:paddingLeft="34dp"
+        android:paddingStart="34dp"
+        android:paddingEnd="34dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toBottomOf="@+id/tvPw" />
@@ -124,7 +128,7 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/usernameinpImg"
         app:layout_constraintBottom_toBottomOf="@+id/etName"
         app:layout_constraintStart_toStartOf="@+id/etName"
         app:layout_constraintTop_toTopOf="@+id/etName"
@@ -137,7 +141,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/gif"
         app:layout_constraintBottom_toBottomOf="@+id/etPw"
         app:layout_constraintStart_toStartOf="@+id/etPw"
         app:layout_constraintTop_toTopOf="@+id/etPw"
@@ -155,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="241dp" />
+        app:layout_constraintGuide_begin="213dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline13"
