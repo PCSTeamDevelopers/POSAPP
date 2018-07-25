@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TODO: Update blank fragment layout -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+  <!--  <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical">-->
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,11 +21,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginTop="16dp"
         android:text="@string/ItemCode"
         android:textColor="@color/colorPrimary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:labelFor="@id/etItemID"/>
 
     <EditText
         android:id="@+id/etItemID"
@@ -40,7 +41,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="number"
-        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
         android:textSize="12sp" />
 
     <TextView
@@ -52,7 +54,8 @@
         android:layout_marginTop="49dp"
         android:text="@string/ItemName"
         android:textColor="@color/colorPrimary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:labelFor="@id/etItemName"/>
 
     <EditText
         android:id="@+id/etItemName"
@@ -66,7 +69,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="textPersonName"
-        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
         android:textSize="12sp" />
 
     <TextView
@@ -106,7 +110,8 @@
         android:layout_marginTop="118dp"
         android:text="@string/UnitPrice"
         android:textColor="@color/colorPrimary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:labelFor="@id/etPrice"/>
 
     <EditText
         android:id="@+id/etPrice"
@@ -120,7 +125,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
         android:textSize="12sp" />
 
     <TextView
@@ -130,7 +136,7 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/txtPrice"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="35dp"
         android:text="@string/Tax"
         android:textColor="@color/colorPrimary"
@@ -139,7 +145,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/etCategoryID"
         android:layout_alignTop="@+id/txtTax"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="52dp"
@@ -153,5 +158,5 @@
     </RelativeLayout>
 
 </RelativeLayout>
-    </LinearLayout>
+  <!--  </LinearLayout>-->
 </ScrollView>

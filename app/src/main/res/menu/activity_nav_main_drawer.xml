@@ -7,37 +7,37 @@
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/main"
-            android:title="Main" />
+            android:title="@string/navSmain" />
         <item
             android:id="@+id/nav_items"
             android:icon="@drawable/items"
-            android:title="Items" />
+            android:title="@string/navSitems" />
         <item
             android:id="@+id/nav_receipts"
             android:icon="@drawable/receipt"
-            android:title="Receipts" />
+            android:title="@string/navSreceipts" />
         <item
             android:id="@+id/nav_sales"
             android:icon="@drawable/sales"
-            android:title="Sales" />
+            android:title="@string/navSsales" />
 
     </group>
 
-    <item android:title="Cash">
+    <item android:title="@string/navGScash">
         <menu>
             <item
                 android:id="@+id/nav_shift"
                 android:icon="@drawable/endshift"
-                android:title="Close Cash" />
+                android:title="@string/navSclose_cash" />
         </menu>
     </item>
 
-    <item android:title="Exit">
+    <item android:title="@string/navGSexit">
         <menu>
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logout"
-                android:title="Log Out" />
+                android:title="@string/navSlog_out" />
         </menu>
     </item>
 

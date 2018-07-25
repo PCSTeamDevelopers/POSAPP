@@ -2,7 +2,6 @@
 <!-- TODO: Update blank fragment layout -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -13,7 +12,7 @@
         android:padding="50dp">
 
         <TextView
-            android:id="@+id/textView45"
+            android:id="@+id/fatherCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -40,7 +39,8 @@
         android:layout_marginBottom="10dp"
         android:text="@string/CategoryCode"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:labelFor="@id/etCategoryID"/>
 
     <EditText
         android:id="@+id/etCategoryID"
@@ -50,7 +50,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="number"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
         android:textSize="14sp" />
 
     <TextView
@@ -60,7 +61,8 @@
         android:layout_marginBottom="10dp"
         android:text="@string/CategoryName"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:labelFor="@id/etCategoryName"/>
 
     <EditText
         android:id="@+id/etCategoryName"
@@ -70,7 +72,8 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="textPersonName"
-        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
         android:textSize="14sp" />
 
 </LinearLayout>

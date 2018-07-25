@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PC Stores POS</string>
+ <!--   <string name="app_name">PC Stores POS</string>
     <string name="o">o</string>
     <string name="i">i</string>
     <string name="n">n</string>
     <string name="t">t</string>
     <string name="dot">o</string>
     <string name="ofSale">of Sale</string>
-    <string name="pcstores">PC STORES ©</string>
-    <string name="rights">© 1998-2018 PC STORES, All rights reserved.</string>
+    <string name="rights">© 1998–2018 PC STORES, All rights reserved.</string>
     <string name="UserName">اسم المستخدم</string>
     <string name="Password">كلمة المرور</string>
     <string name="KeepMeLoggedIn">حفظ تسجيل الدخول</string>
@@ -82,9 +81,9 @@
     <string name="Registration">التسجيل</string>
     <string name="Name">الاسم</string>
     <string name="Apply">تقديم</string>
-    <string name="addFlavor">إضافة نكهة</string>
-    <string name="AddCategory">إضافة مجموعة</string>
-    <string name="AddItem">إضافة مادة</string>
+    <string name="addFlavorTxT">إضافة نكهة</string>
+    <string name="addCatTxT">إضافة مجموعة</string>
+    <string name="addItemTxT">إضافة مادة</string>
     <string name="editCategory">تعديل مجموعة</string>
     <string name="editItem">تعديل مادة</string>
     <string name="ItemCode">رمز المادة</string>
@@ -105,6 +104,6 @@
     <string name="deleteQuestion">هل انت متأكد من حذف المادة؟</string>
     <string name="message">Message</string>
     <string name="noItems">لا يمكنك إغلاق فاتورة صفرية!</string>
-    <string name="noCategories">لا تستطيع تعريف مواد قبل ان تعرف مجموعات!</string>
+    <string name="noCategories">لا تستطيع تعريف مواد قبل ان تعرف مجموعات!</string>-->
 
 </resources>

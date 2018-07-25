@@ -6,19 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import jo.com.pcstores.rpos.R;
 
 public class ItemsClass {
 
@@ -71,6 +66,7 @@ public class ItemsClass {
     public List<String> getAllCategories(){
         final List<String> categories = new ArrayList<String>();
         String item ;
+        //U can remove beginTransaction
         realm.beginTransaction();
         RealmResults<Items> data = realm.where(Items.class).equalTo("itemType",0).findAll();
 
@@ -201,6 +197,7 @@ public class ItemsClass {
     public ArrayList<String> getFlavors(){
         ArrayList<String> flavors= new ArrayList<>();
         try {
+            //U can remove beginTransaction
             realm.beginTransaction();
             RealmResults<Flavors> results = realm.where(Flavors.class).findAll();
             results.load();

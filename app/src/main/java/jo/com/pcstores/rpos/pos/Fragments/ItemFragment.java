@@ -59,6 +59,7 @@ public class ItemFragment extends Fragment {
         realm = Realm.getDefaultInstance();
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle("Items");
         actionBar.setSubtitle("");
 
@@ -72,6 +73,7 @@ public class ItemFragment extends Fragment {
         listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
         expList.setAdapter(listAdapter);
         expList.setGroupIndicator(getResources().getDrawable(R.drawable.custom_expandable));
+        //we must replace prepareCategoryArray().size() with variable who's get the size
         for (int i = 0; i < prepareCategoryArray().size(); i++) {
             expList.expandGroup(i);
         }
@@ -93,7 +95,7 @@ public class ItemFragment extends Fragment {
 
                     spCategory.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, itemObj.getMainCategories()));
 
-                    alertDialogBuilder.setTitle(R.string.AddCategory);
+                    alertDialogBuilder.setTitle(R.string.addCatTxT);
                     alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                     alertDialogBuilder
                             .setPositiveButton("OK",
@@ -146,7 +148,7 @@ public class ItemFragment extends Fragment {
                         String[] tax = getResources().getStringArray(R.array.taxArray);
                         spTax.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.custom_spinner_login, R.id.Name, tax));
 
-                        alertDialogBuilder.setTitle(R.string.AddItem);
+                        alertDialogBuilder.setTitle(R.string.addItemTxT);
                         alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                         alertDialogBuilder
                                 .setPositiveButton(android.R.string.ok,
@@ -190,7 +192,7 @@ public class ItemFragment extends Fragment {
                     final EditText etFlavorName = myView.findViewById(R.id.etFlavorName);
                     final EditText etPrice = myView.findViewById(R.id.etPrice);
 
-                    alertDialogBuilder.setTitle(R.string.addFlavor);
+                    alertDialogBuilder.setTitle(R.string.addFlavorTxT);
                     alertDialogBuilder.setIcon(getResources().getDrawable(R.drawable.plus));
                     alertDialogBuilder
                             .setPositiveButton(android.R.string.ok,
@@ -255,11 +257,12 @@ public class ItemFragment extends Fragment {
             ArrayList<Items> header = new ArrayList<>();
             header = prepareCategoryArray();
             // Adding child data
-            for (int i = 0; i < header.size(); i++) {
+            for (int i = 0; i < header.size(); i++)     {
                 String name = header.get(i).getItemName();
                 listDataHeader.add(name);
                 List<String> items = new ArrayList<String>();
                 String data;
+                //U can remove beginTransaction
                 realm.beginTransaction();
                 RealmResults<Items> subItem = realm.where(Items.class).equalTo("father", itemObj.getItemId(name)).equalTo("itemType", 1).findAll();
                 for (Items item : subItem) {
@@ -278,6 +281,7 @@ public class ItemFragment extends Fragment {
         ArrayList<Items> items = new ArrayList<>();
         try {
             Items item = new Items();
+            //U can remove beginTransaction
             realm.beginTransaction();
             RealmResults<Items> data = realm.where(Items.class).equalTo("itemType", 0).findAll();
             data.load();

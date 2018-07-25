@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+
+
+<LinearLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
     android:orientation="vertical"
-    tools:context=".pos.Fragments.DialogFragments.RegistrationDialogFragment">
+    android:paddingBottom="20dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:paddingTop="50dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingBottom="20dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="50dp">
-
-        <!-- TODO: Update blank fragment layout -->
 
         <TextView
             android:id="@+id/textView28"
@@ -32,7 +21,8 @@
             android:layout_weight="1"
             android:text="@string/Name"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/xlarge" />
+            android:textSize="@dimen/xlarge"
+            android:labelFor="@id/etName"/>
 
         <EditText
             android:id="@+id/etName"
@@ -44,7 +34,8 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:paddingTop="5dp" />
 
         <TextView
@@ -55,7 +46,8 @@
             android:layout_weight="1"
             android:text="@string/Password"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/xlarge" />
+            android:textSize="@dimen/xlarge"
+            android:labelFor="@id/etPw"/>
 
         <EditText
             android:id="@+id/etPw"
@@ -67,9 +59,10 @@
             android:ems="10"
             android:inputType="textPassword"
             android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:paddingTop="5dp" />
 
     </LinearLayout>
 
-</RelativeLayout>
+

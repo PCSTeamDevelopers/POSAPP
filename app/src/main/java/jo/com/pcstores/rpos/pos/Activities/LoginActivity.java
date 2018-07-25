@@ -59,12 +59,12 @@ public class LoginActivity extends AppCompatActivity {
 
         //HIDE ACTIONBAR
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.hide();
 
         //TO FORCE KEYBOARD HIDDEN ON START
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        etName.clearFocus();
-        etPw.clearFocus();
+
 
         //INITIALIZE
         tvPw = findViewById(R.id.tvPw);
@@ -77,7 +77,8 @@ public class LoginActivity extends AppCompatActivity {
         btnRegistration = findViewById(R.id.btnRegistration);
         swKeepLogged = findViewById(R.id.swKeepLogged);
 
-
+        etName.clearFocus();
+        etPw.clearFocus();
 
         //SET ANIMATION FOR IMAGES
         //onTouch pass edittext

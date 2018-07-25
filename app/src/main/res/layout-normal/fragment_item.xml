@@ -76,7 +76,8 @@
             app:fabSize="normal"
             app:layout_column="0"
             app:layout_row="1"
-            app:rippleColor="@color/colorPrimary" />
+            app:rippleColor="@color/colorPrimary"
+            android:focusable="true" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/btnFlavor"
@@ -91,17 +92,20 @@
             app:fabSize="normal"
             app:layout_column="0"
             app:layout_row="2"
-            app:rippleColor="@color/cardview_light_background" />
+            app:rippleColor="@color/cardview_light_background"
+            android:focusable="true" />
 
         <TextView
-            android:id="@+id/textView37"
+            android:id="@+id/addCatTxT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="center"
+            app:layout_gravity="start"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:paddingTop="27dp"
-            android:text="@string/AddCategory"
+            android:text="@string/addCatTxT"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -109,14 +113,16 @@
             app:layout_row="0" />
 
         <TextView
-            android:id="@+id/textView38"
+            android:id="@+id/addItemTxT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left|center"
-            android:paddingLeft="10dp"
+            android:gravity="center"
+            app:layout_gravity="start"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:paddingTop="27dp"
-            android:text="@string/AddItem"
+            android:text="@string/addItemTxT"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -124,12 +130,13 @@
             app:layout_row="1" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/addFlavorTxT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
             android:paddingTop="27dp"
-            android:text="Add Flavor"
+            android:text="@string/addFlavorTxT"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:textStyle="bold" />
